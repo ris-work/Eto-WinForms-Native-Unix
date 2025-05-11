@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net9.0</TargetFrameworks>
+    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net9.0-windows</TargetFrameworks>
     <TargetFrameworks Condition="$(TargetFrameworkOverride) != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <OutputType>Library</OutputType>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -10,7 +10,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
     <LangVersion>13</LangVersion>
-    <UseWindowsForms>false</UseWindowsForms>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -44,7 +44,6 @@ You do not need to use any of the classes of this assembly (unless customizing t
   <PropertyGroup>
     <EmbedReferences>Interop.SHDocVw</EmbedReferences>
     <EmbedPrefix>Eto.WinForms.CustomControls.Assemblies</EmbedPrefix>
-    <TargetFrameworks>net9.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -77,11 +76,6 @@ You do not need to use any of the classes of this assembly (unless customizing t
     <Reference Include="..\..\lib\SHDocVw\Interop.SHDocVw.dll" EmbedInteropTypes="False" Private="False" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) == 'true'">
-    <Reference Include="System" Pack="False" />
-    <Reference Include="System.Drawing" Pack="False" />
-    <Reference Include="System.Core" Pack="False" />
-  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Eto.Mac\SDConversions.cs">
