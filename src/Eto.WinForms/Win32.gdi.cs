@@ -23,8 +23,8 @@ namespace Eto
 			}
 		}
 
-		[DllImport("gdi32.dll", CharSet = CharSet.Auto)]
-		public static extern bool GetTextMetrics(IntPtr hdc, out TEXTMETRICW lptm);
+		public static bool GetTextMetrics(IntPtr hdc, out TEXTMETRICW lptm) { lptm = default; return false; }
+
 
 		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 		public struct TEXTMETRICW
@@ -50,11 +50,9 @@ namespace Eto
 			public byte tmPitchAndFamily;
 			public byte tmCharSet;
 		}
-		[DllImport("gdi32.dll")]
-		public static extern uint GetFontUnicodeRanges(IntPtr hdc, IntPtr lpgs);
+		public static uint GetFontUnicodeRanges(IntPtr hdc, IntPtr lpgs) => 0;
+		public static IntPtr SelectObject(IntPtr hDC, IntPtr hObject) => IntPtr.Zero;
 
-		[DllImport("gdi32.dll")]
-		public extern static IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
 
 		public struct FontRange
 		{
@@ -86,8 +84,7 @@ namespace Eto
 			g.Dispose();
 			return fontRanges;
 		}
-		
-		[DllImport("gdi32.dll")]
-		public static extern bool DeleteObject(IntPtr hObject);
+
+		public static bool DeleteObject(IntPtr hObject) => false;
 	}
 }
