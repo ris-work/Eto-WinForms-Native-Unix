@@ -158,7 +158,7 @@ You do not need to use any of the classes of this assembly (unless customizing t
   </ItemGroup>
   <PropertyGroup>
     <!-- Append NETSDK1136 to your existing NoWarn values -->
-    <NoWarn>$(NoWarn);NETSDK1136</NoWarn>
+    <NoWarn>$(NoWarn);NETSDK1136;CA2022;SYSLIB0050;CS9191;IL3000;CA1416</NoWarn>
   </PropertyGroup>
 
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-windows;net9.0</TargetFrameworks>
+    <TargetFrameworks>net10.0-windows;net10.0</TargetFrameworks>
     <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -10,6 +10,14 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseWindowsForms>false</UseWindowsForms>
     <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
+    <SelfContained>true</SelfContained>
+    
+  </PropertyGroup>
+
+  <!-- If IsWindowsTarget is not set, default the runtime identifier to linux-x64 -->
+  <PropertyGroup Condition="'$(IsWindowsTarget)' != 'true'">
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <PublishSelfContained>true</PublishSelfContained>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -23,9 +31,7 @@
     <Using Include="System.Drawing.Drawing2D" Alias="sd2" />
   </ItemGroup>
 
-  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences"
-        BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies"
-        Condition="'$(IsWindowsTarget)' != 'true'">
+  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences" BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies" Condition="'$(IsWindowsTarget)' != 'true'">
     <ItemGroup>
       <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App" />
       <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WindowsForms" />
@@ -70,9 +76,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences"
-      BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies"
-      Condition="'$(IsWindowsTarget)' != 'true'">
+  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences" BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies" Condition="'$(IsWindowsTarget)' != 'true'">
     <ItemGroup>
       <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App" />
       <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WindowsForms" />

@@ -299,61 +299,25 @@ namespace Eto
 			return buttons;
 		}
 
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool IsIconic(IntPtr hWnd);
 
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool IsZoomed(IntPtr hWnd);
+    // user32.dll functions
+    public static bool IsIconic(IntPtr hWnd) => false;
+		public static bool IsZoomed(IntPtr hWnd) => false;
+		public static bool IsWindowVisible(IntPtr hWnd) => false;
+		public static bool ShowWindow(IntPtr hWnd, SW nCmdShow) => true;
+		public static IntPtr GetActiveWindow() => IntPtr.Zero;
+		public static IntPtr SetActiveWindow(IntPtr hWnd) => IntPtr.Zero;
+		public static bool EnableWindow(IntPtr hWnd, bool bEnable) => true;
+		public static bool IsWindowEnabled(IntPtr hWnd) => true;
+		public static bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SWP uFlags) => true;
+		public static bool GetWindowRect(IntPtr hWnd, out RECT lpRect) { lpRect = default; return false; }
+		public static uint GetWindowLong(IntPtr hWnd, GWL nIndex) => 0;
+		public static int SetWindowLong(IntPtr hWnd, GWL nIndex, uint dwNewLong) => 0;
+		public static IntPtr SendMessage(IntPtr hWnd, WM wMsg, IntPtr wParam, IntPtr lParam) => IntPtr.Zero;
+		public static IntPtr SendMessage(IntPtr hWnd, WM msg, IntPtr wParam, string lParam) => IntPtr.Zero;
+		public static IntPtr SendMessage(IntPtr hWnd, WM wMsg, IntPtr wParam, ref sd.Point lParam) => IntPtr.Zero;
+		public static bool PeekMessage(ref swf.Message wMsg, IntPtr hwnd, int msgMin, int msgMax, int remove) => false;
 
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool IsWindowVisible(IntPtr hWnd);
-
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool ShowWindow(IntPtr hWnd, SW nCmdShow);
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr GetActiveWindow();
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr SetActiveWindow(IntPtr hWnd);
-
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool EnableWindow(IntPtr hWnd, [MarshalAs(UnmanagedType.Bool)] bool bEnable);
-
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool IsWindowEnabled(IntPtr hWnd);
-
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SWP uFlags);
-
-		[DllImport("user32.dll")]
-		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-		[DllImport("user32.dll", SetLastError = true)]
-		public static extern uint GetWindowLong(IntPtr hWnd, GWL nIndex);
-
-		[DllImport("user32.dll")]
-		public static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, uint dwNewLong);
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr SendMessage(IntPtr hWnd, WM wMsg, IntPtr wParam, IntPtr lParam);
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-		public static extern IntPtr SendMessage(IntPtr hWnd, WM msg, IntPtr wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		public static extern IntPtr SendMessage(IntPtr hWnd, WM wMsg, IntPtr wParam, ref sd.Point lParam);
-
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		public static extern bool PeekMessage(ref swf.Message wMsg, IntPtr hwnd, int msgMin, int msgMax, int remove);
 
 
 		public static swf.Message? GetNextMessage(swf.Control ctl, params WM[] wMsg)
@@ -374,45 +338,17 @@ namespace Eto
 			return msg;
 		}
 
-		[DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-		static extern IntPtr LoadLibrary(string library);
+		public static IntPtr LoadLibrary(string library) => IntPtr.Zero;
+		public static bool FreeLibrary(IntPtr moduleHandle) => false;
+		public static IntPtr GetProcAddress(IntPtr moduleHandle, string method) => IntPtr.Zero;
 
-		[DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-		static extern bool FreeLibrary(IntPtr moduleHandle);
+		public enum GA : uint { GA_PARENT = 1, GA_ROOT = 2, GA_ROOTOWNER = 3 }
+		public static IntPtr GetAncestor(IntPtr hwnd, GA gaFlags) => IntPtr.Zero;
 
-		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, BestFitMapping = false, SetLastError = true, ExactSpelling = true)]
-		static extern IntPtr GetProcAddress(IntPtr moduleHandle, string method);
+		public static bool MethodExists(string module, string method) { var h = LoadLibrary(module); if (h == IntPtr.Zero) return false; try { return GetProcAddress(h, method) != IntPtr.Zero; } finally { FreeLibrary(h); } }
 
-		public enum GA : uint
-		{
-			GA_PARENT = 1,
-			GA_ROOT = 2,
-			GA_ROOTOWNER = 3
-		}
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr GetAncestor(IntPtr hwnd, GA gaFlags);
-
-		public static bool MethodExists(string module, string method)
-		{
-			var moduleHandle = LoadLibrary(module);
-			if (moduleHandle == IntPtr.Zero)
-				return false;
-			try
-			{
-				return GetProcAddress(moduleHandle, method) != IntPtr.Zero;
-			}
-			finally
-			{
-				FreeLibrary(moduleHandle);
-			}
-		}
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-		static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
-		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-		static extern int GetWindowTextLength(IntPtr hWnd);
+		public static int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount) => 0;
+		public static int GetWindowTextLength(IntPtr hWnd) => 0;
 
 		public static string GetWindowText(IntPtr hwnd)
 		{
@@ -448,21 +384,12 @@ namespace Eto
 			}
 		}
 
-		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-		public static extern IntPtr CallNextHookEx(IntPtr hookId, int code, IntPtr wParam, IntPtr lParam);
+		public static IntPtr CallNextHookEx(IntPtr hookId, int code, IntPtr wParam, IntPtr lParam) => IntPtr.Zero;
+		public static IntPtr GetModuleHandle(string moduleName) => IntPtr.Zero;
+		public static IntPtr SetWindowsHookEx(IntPtr hookId, HookProc function, IntPtr instance, int threadId) => IntPtr.Zero;
+		public static bool UnhookWindowsHookEx(IntPtr hookId) => false;
 
-		[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-		public static extern IntPtr GetModuleHandle(string moduleName);
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-		public static extern IntPtr SetWindowsHookEx(IntPtr hookId, HookProc function, IntPtr instance, int threadId);
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall, SetLastError = true)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool UnhookWindowsHookEx(IntPtr hookId);
-
-		[DllImportAttribute("user32.dll")]
-		public static extern bool ReleaseCapture();
+		public static bool ReleaseCapture() => false;
 
 		public delegate IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam);
 
@@ -503,15 +430,10 @@ namespace Eto
 		}
 
 
-		[DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-		public static extern IntPtr GetForegroundWindow();
+		public static IntPtr GetForegroundWindow() => IntPtr.Zero;
+		private static int GetWindowThreadProcessId(IntPtr handle, out int processId) { processId = 0; return 0; }
 
-		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-		private static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
-
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool GetGUIThreadInfo(uint idThread, ref GUITHREADINFO lpgui);
+		public static bool GetGUIThreadInfo(uint idThread, ref GUITHREADINFO lpgui) => false;
 
 		[StructLayout(LayoutKind.Sequential)]
 		public struct GUITHREADINFO
@@ -527,8 +449,7 @@ namespace Eto
 			public RECT rcCaret;
 		}
 
-		[DllImport("kernel32.dll")]
-		static extern uint GetCurrentThreadId();
+		public static uint GetCurrentThreadId() => 0;
 
 		public static bool GetInfo(out GUITHREADINFO lpgui, uint? threadId = null)
 		{
@@ -546,21 +467,11 @@ namespace Eto
 			return info.hwndFocus;
 		}
 
-		[DllImport("gdi32.dll")]
-		public static extern bool OffsetWindowOrgEx(IntPtr hdc, int nXOffset, int nYOffset, ref POINT lpPoint);
-
-		[DllImport("gdi32.dll")]
-		public static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nheightRect, int nweightRect);
-
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr WindowFromPoint(POINT lpPoint);
-
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
-		[DllImport("user32.dll")]
-		public static extern bool EnableMenuItem(IntPtr hMenu, SC uIDEnableItem, MF uEnable);
+		public static bool OffsetWindowOrgEx(IntPtr hdc, int nXOffset, int nYOffset, ref POINT lpPoint) => false;
+		public static IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nheightRect, int nweightRect) => IntPtr.Zero;
+		public static IntPtr WindowFromPoint(POINT lpPoint) => IntPtr.Zero;
+		public static IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert) => IntPtr.Zero;
+		public static bool EnableMenuItem(IntPtr hMenu, SC uIDEnableItem, MF uEnable) => false;
 
 		[Flags]
 		public enum MF : uint
@@ -574,14 +485,9 @@ namespace Eto
 			CLOSE = 0xF060
 		}
 
-		[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-		public static extern IntPtr GlobalLock(IntPtr handle);
-
-		[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-		public static extern bool GlobalUnlock(IntPtr handle);
-
-		[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-		public static extern int GlobalSize(IntPtr handle);
+		public static IntPtr GlobalLock(IntPtr handle) => IntPtr.Zero;
+		public static bool GlobalUnlock(IntPtr handle) => false;
+		public static int GlobalSize(IntPtr handle) => 0;
 
 
 		public enum SBB
@@ -619,24 +525,12 @@ namespace Eto
 			public int nTrackPos;
 		}
 
-		[DllImport("user32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool GetScrollInfo(IntPtr hwnd, int fnBar, ref SCROLLINFO lpsi);
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
-
-		[DllImport("user32.dll")]
-		public static extern bool DestroyWindow(IntPtr hWnd);
-
-		[DllImport("User32.dll", SetLastError = true)]
-		public static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
-
-		[DllImport("kernel32.dll")]
-		public static extern void SetLastError(uint dwErrCode);
+		public static bool GetScrollInfo(IntPtr hwnd, int fnBar, ref SCROLLINFO lpsi) { lpsi = default; return false; }
+		public static IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent) => IntPtr.Zero;
+		public static IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam) => IntPtr.Zero;
+		public static bool DestroyWindow(IntPtr hWnd) => false;
+		public static int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw) => 0;
+		public static void SetLastError(uint dwErrCode) { }
 
 		public const int MAX_PATH = 260;
 
@@ -759,8 +653,7 @@ namespace Eto
 			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH)]
 			public string szPath;
 		}
-		[DllImport("Shell32.dll", SetLastError = false)]
-		public static extern Int32 SHGetStockIconInfo(SHSTOCKICONID siid, SHGSI uFlags, ref SHSTOCKICONINFO psii);
+		public static Int32 SHGetStockIconInfo(SHSTOCKICONID siid, SHGSI uFlags, ref SHSTOCKICONINFO psii) => 0;
 
 		/// <summary>
 		/// Provides access to function required to delete handle. This method is used internally
@@ -768,12 +661,8 @@ namespace Eto
 		/// </summary>
 		/// <param name="hIcon">Pointer to icon handle.</param>
 		/// <returns>N/A</returns>
-		[DllImport("User32.dll")]
-		public static extern int DestroyIcon(IntPtr hIcon);
-		
-		[DllImport("user32.dll", SetLastError = true)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
+		public static int DestroyIcon(IntPtr hIcon) => 0;
+		public static bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl) { lpwndpl = default; return false; }
 
 		[Flags]
 		public enum WPF : int

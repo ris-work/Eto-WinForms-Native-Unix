@@ -5,6 +5,7 @@
     <DefineConstants>$(DefineConstants);PCL</DefineConstants>
     <LangVersion>13</LangVersion>
     <UseWpf Condition="$(TargetFramework) == 'net7.0-windows'">true</UseWpf>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
   
   <PropertyGroup>
