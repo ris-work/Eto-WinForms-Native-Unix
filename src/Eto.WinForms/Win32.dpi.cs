@@ -147,7 +147,7 @@ namespace Eto
 			}
 
 
-			public override float GetLogicalPixelSize(swf.Screen screen, bool usePerMonitor = true)
+			public override float GetLogicalPixelSize(System.Windows.Forms.Screen screen, bool usePerMonitor = true)
 			{
 				if (!MonitorDpiSupported)
 				{
@@ -155,19 +155,25 @@ namespace Eto
 					using (var form = new System.Windows.Forms.Form { Bounds = screen.Bounds })
 					using (var graphics = form.CreateGraphics())
 					{
-						return (uint)graphics.DpiY / 96f;
+						return graphics.DpiY / 96f;
 					}
 				}
-				var mon = MonitorFromPoint(screen.Bounds.Location, MONITOR.DEFAULTTONEAREST);
 
-				// use per-monitor aware dpi awareness to get ACTUAL dpi here
-				var oldDpiAwareness = usePerMonitor ? SetThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT.PER_MONITOR_AWARE_v2) : DPI_AWARENESS_CONTEXT.NONE;
+				// Create an EtoPoint using the alias so that the type matches what MonitorFromPoint expects.
+				var etoPoint = new System.Drawing.Point(screen.Bounds.Location.X, screen.Bounds.Location.Y);
+				var mon = MonitorFromPoint(etoPoint, MONITOR.DEFAULTTONEAREST);
+
+				// Use per-monitor aware dpi awareness to get ACTUAL dpi
+				var oldDpiAwareness = usePerMonitor
+					? SetThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT.PER_MONITOR_AWARE_v2)
+					: DPI_AWARENESS_CONTEXT.NONE;
 
 				uint dpiX, dpiY;
 				GetDpiForMonitor(mon, MDT.EFFECTIVE_DPI, out dpiX, out dpiY);
 
 				if (oldDpiAwareness != DPI_AWARENESS_CONTEXT.NONE)
 					SetThreadDpiAwarenessContextSafe(oldDpiAwareness);
+
 				return dpiX / 96f;
 			}
 
@@ -198,33 +204,15 @@ namespace Eto
 		}
 
 
-		[DllImport("User32.dll")]
-		public static extern IntPtr MonitorFromPoint(System.Drawing.Point pt, MONITOR dwFlags);
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr MonitorFromWindow(IntPtr hwnd, MONITOR flags);
-
-		[DllImport("user32.dll")]
-		public static extern uint GetDpiForWindow(IntPtr hwnd);
-
-		[DllImport("user32.dll")]
-		public static extern uint GetDpiForSystem();
-
-		[DllImport("shcore.dll")]
-		public static extern uint GetDpiForMonitor(IntPtr hmonitor, MDT dpiType, out uint dpiX, out uint dpiY);
-
-		[DllImport("shcore.dll")]
-		public static extern uint SetProcessDpiAwareness(PROCESS_DPI_AWARENESS awareness);
-
-		[DllImport("shcore.dll")]
-		public static extern uint GetProcessDpiAwareness(IntPtr handle, out PROCESS_DPI_AWARENESS awareness);
-
-		[DllImport("User32.dll", SetLastError = true)]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		public static extern bool IsProcessDPIAware();
-
-		[DllImport("User32.dll")]
-		static extern DPI_AWARENESS_CONTEXT SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext);
+    public static IntPtr MonitorFromPoint(System.Drawing.Point pt, MONITOR dwFlags) => IntPtr.Zero;
+    public static IntPtr MonitorFromWindow(IntPtr hwnd, MONITOR flags) => IntPtr.Zero;
+    public static uint GetDpiForWindow(IntPtr hwnd) => 0;
+    public static uint GetDpiForSystem() => 0;
+    public static uint GetDpiForMonitor(IntPtr hmonitor, MDT dpiType, out uint dpiX, out uint dpiY) { dpiX = 0; dpiY = 0; return 0; }
+    public static uint SetProcessDpiAwareness(PROCESS_DPI_AWARENESS awareness) => 0;
+    public static uint GetProcessDpiAwareness(IntPtr handle, out PROCESS_DPI_AWARENESS awareness) { awareness = default; return 0; }
+    public static bool IsProcessDPIAware() => false;
+    public static DPI_AWARENESS_CONTEXT SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT dpiContext) => default;
 
 		public static DPI_AWARENESS_CONTEXT SetThreadDpiAwarenessContextSafe(DPI_AWARENESS_CONTEXT dpiContext)
 		{
@@ -267,19 +255,11 @@ namespace Eto
 			}
 		}
 
-		[DllImport("User32.dll")]
-		public static extern DPI_AWARENESS_CONTEXT GetThreadDpiAwarenessContext();
-
-		[DllImport("User32.dll")]
-		public static extern bool EnableNonClientDpiScaling(IntPtr hwnd);
-
-		[DllImport("User32.dll", CharSet = CharSet.Auto)]
-		public static extern bool GetMonitorInfo(HandleRef hmonitor, [In, Out] MONITORINFOEX info);
-		[DllImport("User32.dll", ExactSpelling = true)]
-		public static extern IntPtr MonitorFromPoint(POINT pt, int flags);
-
-		[DllImport("user32.dll")]
-		public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+		public static DPI_AWARENESS_CONTEXT GetThreadDpiAwarenessContext() => default;
+		public static bool EnableNonClientDpiScaling(IntPtr hwnd) => false;
+		public static bool GetMonitorInfo(HandleRef hmonitor, [In, Out] MONITORINFOEX info) { info = default; return false; }
+		public static IntPtr MonitorFromPoint(POINT pt, int flags) => IntPtr.Zero;
+		public static IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags) => IntPtr.Zero;
 
 		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
 		public class MONITORINFOEX
