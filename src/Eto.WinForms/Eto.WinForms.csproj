@@ -1,16 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net9.0-windows</TargetFrameworks>
+    <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
+    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net9.0-windows;net9.0</TargetFrameworks>
     <TargetFrameworks Condition="$(TargetFrameworkOverride) != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <OutputType>Library</OutputType>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <DefineConstants>$(DefineConstants);WINFORMS</DefineConstants>
     <NoWarn>MSB4011;$(NoWarn)</NoWarn>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms Condition="'$(IsWindowsTarget)' == 'true'">true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
     <LangVersion>13</LangVersion>
-    <UseWindowsForms>true</UseWindowsForms>
+
   </PropertyGroup>
 
   <PropertyGroup>
@@ -175,6 +176,17 @@ You do not need to use any of the classes of this assembly (unless customizing t
     <!--<TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>-->
     
   </PropertyGroup>
+
+  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences"
+        BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies"
+        Condition="'$(IsWindowsTarget)' != 'true'">
+    <ItemGroup>
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App" />
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WindowsForms" />
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WPF" />
+    </ItemGroup>
+  </Target>
+
 
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">
