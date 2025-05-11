@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms
 {
 	public class TableLayoutHandler : WindowsContainer<swf.TableLayoutPanel, TableLayout, TableLayout.ICallback>, TableLayout.IHandler
@@ -11,6 +13,7 @@ namespace Eto.WinForms.Forms
 
 		public class EtoTableLayoutPanel : swf.TableLayoutPanel
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public TableLayoutHandler Handler { get; set; }
 
 			sd.Size GetMinSize()

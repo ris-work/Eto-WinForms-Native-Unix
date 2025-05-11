@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.CustomControls
 {
 	/// <summary>
@@ -34,6 +36,7 @@ namespace Eto.WinForms.CustomControls
 
 		readonly List<Segment> segments = new List<Segment>();
 
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public bool ExtendedMode
 		{
 			get { return GetStyle(swf.ControlStyles.UserPaint); }
@@ -372,6 +375,7 @@ namespace Eto.WinForms.CustomControls
 		}
 
 		[Browsable(true)]
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public override sd.Color BackColor
 		{
 			get { return base.BackColor; }
@@ -383,6 +387,7 @@ namespace Eto.WinForms.CustomControls
 		}
 
 		bool showBorder = true;
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public bool ShowBorder
 		{
 			get { return showBorder; }

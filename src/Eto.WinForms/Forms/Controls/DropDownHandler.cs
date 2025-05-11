@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms.Controls
 {
 	public class DropDownHandler : DropDownHandler<EtoComboBox, DropDown, DropDown.ICallback>, DropDown.IHandler
@@ -27,6 +29,7 @@ namespace Eto.WinForms.Forms.Controls
 			cachedSize = null;
 		}
 
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public sd.Size MinSize { get; set; }
 
 		/*
@@ -75,6 +78,7 @@ namespace Eto.WinForms.Forms.Controls
 		}
 
 		sd.Color? backColor;
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public new sd.Color BackColor
 		{
 			get { return backColor ?? base.BackColor; }
@@ -154,6 +158,7 @@ namespace Eto.WinForms.Forms.Controls
 		}
 
 		bool showBorder = true;
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public bool ShowBorder
 		{
 			get { return showBorder; }

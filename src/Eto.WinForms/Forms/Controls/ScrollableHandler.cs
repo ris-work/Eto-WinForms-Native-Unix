@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms.Controls
 {
 	public class ScrollableHandler : WindowsPanel<ScrollableHandler.CustomScrollable, Scrollable, Scrollable.ICallback>, Scrollable.IHandler
@@ -9,6 +11,7 @@ namespace Eto.WinForms.Forms.Controls
 
 		public class CustomScrollable : swf.Panel
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public ScrollableHandler Handler { get; set; }
 
 			protected override bool ProcessDialogKey(swf.Keys keyData)

@@ -1,4 +1,5 @@
 using Eto.WinForms.CustomControls;
+using System.ComponentModel;
 namespace Eto.WinForms.Forms.Controls
 {
 	public class EtoSearchTextBox : EtoTextBox
@@ -78,12 +79,14 @@ namespace Eto.WinForms.Forms.Controls
 			}
 		}
 
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public sd.Image SearchImage
 		{
 			set => searchImage.Image = value;
 			get => searchImage.Image;
 		}
 
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public sd.Image CancelSearchImage
 		{
 			set => clearSearchButton.Image = value;

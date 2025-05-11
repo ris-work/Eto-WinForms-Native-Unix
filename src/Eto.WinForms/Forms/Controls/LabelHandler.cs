@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms.Controls
 {
 	public class LabelHandler : WindowsControl<LabelHandler.EtoLabel, Label, Label.ICallback>, Label.IHandler
@@ -38,6 +40,7 @@ namespace Eto.WinForms.Forms.Controls
 				}
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public override sd.Font Font
 			{
 				get { return base.Font; }
@@ -48,6 +51,7 @@ namespace Eto.WinForms.Forms.Controls
 				}
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public override string Text
 			{
 				get { return base.Text; }
@@ -58,6 +62,7 @@ namespace Eto.WinForms.Forms.Controls
 				}
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public WrapMode Wrap
 			{
 				get { return wrapMode; }
@@ -68,6 +73,7 @@ namespace Eto.WinForms.Forms.Controls
 				}
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public TextAlignment TextAlignment
 			{
 				get { return horizontalAlign; }
@@ -78,6 +84,7 @@ namespace Eto.WinForms.Forms.Controls
 				}
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public VerticalAlignment VerticalAlignment
 			{
 				get { return verticalAlign; }

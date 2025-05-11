@@ -1,5 +1,6 @@
 using Eto.WinForms.Forms.Cells;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Eto.WinForms.Forms.Controls
 {
@@ -10,6 +11,7 @@ namespace Eto.WinForms.Forms.Controls
 
 		class EtoDataGridViewColumn : swf.DataGridViewColumn
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public GridColumnHandler Handler { get; set; }
 
 			public override int GetPreferredWidth(DataGridViewAutoSizeColumnMode autoSizeColumnMode, bool fixedHeight)

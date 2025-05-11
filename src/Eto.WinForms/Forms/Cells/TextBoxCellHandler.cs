@@ -1,4 +1,6 @@
-﻿namespace Eto.WinForms.Forms.Cells
+using System.ComponentModel;
+
+namespace Eto.WinForms.Forms.Cells
 {
 	interface ITextCellHandler
 	{
@@ -7,7 +9,9 @@
 
 	class EtoDataGridViewTextBoxEditingControl : swf.DataGridViewTextBoxEditingControl
 	{
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public ITextCellHandler Handler { get; set; }
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public bool IsMouseDown { get; set; }
 		public override void PrepareEditingControlForEdit(bool selectAll)
 		{

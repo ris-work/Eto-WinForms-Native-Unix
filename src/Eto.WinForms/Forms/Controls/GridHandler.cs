@@ -1,4 +1,5 @@
 using Eto.WinForms.Drawing;
+using System.ComponentModel;
 namespace Eto.WinForms.Forms.Controls
 {
 	public interface IGridHandler
@@ -36,6 +37,7 @@ namespace Eto.WinForms.Forms.Controls
 
 		class EtoDataGridView : swf.DataGridView
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public GridHandler<TWidget, TCallback> Handler { get; set; }
 
 			public EtoDataGridView() { DoubleBuffered = true; }

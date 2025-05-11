@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms.ToolBar
 {
 	public class ToolBarHandler : WidgetHandler<ToolStripEx, Eto.Forms.ToolBar>, Eto.Forms.ToolBar.IHandler
@@ -71,6 +73,14 @@ namespace Eto.WinForms.Forms.ToolBar
 	public class ToolStripEx
 		: swf.ToolStrip
 	{
+		/// <summary>
+		/// Gets or sets whether the ToolStripEx honors item clicks when its containing form does
+		/// not have input focus.
+		/// </summary>
+		/// <remarks>
+		/// Default value is false, which is the same behavior provided by the base ToolStrip class.
+		/// </remarks>
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		/// <summary>
 		/// Gets or sets whether the ToolStripEx honors item clicks when its containing form does
 		/// not have input focus.

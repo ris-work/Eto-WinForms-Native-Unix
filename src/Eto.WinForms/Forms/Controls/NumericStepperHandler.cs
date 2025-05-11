@@ -1,9 +1,12 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms.Controls
 {
 	public class NumericStepperHandler : WindowsControl<NumericStepperHandler.EtoNumericUpDown, NumericStepper, NumericStepper.ICallback>, NumericStepper.IHandler
 	{
 		public class EtoNumericUpDown : swf.NumericUpDown
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public NumericStepperHandler Handler { get; set; }
 
 			public override void UpButton()

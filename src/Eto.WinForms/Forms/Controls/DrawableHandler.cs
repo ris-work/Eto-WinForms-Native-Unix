@@ -1,4 +1,5 @@
 using Eto.WinForms.Drawing;
+using System.ComponentModel;
 
 namespace Eto.WinForms.Forms.Controls
 {
@@ -30,6 +31,7 @@ namespace Eto.WinForms.Forms.Controls
 				base.SetStyle(flag, value);
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public bool CanFocusMe
 			{
 				get { return canFocus; }

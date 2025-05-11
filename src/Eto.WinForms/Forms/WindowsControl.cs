@@ -1,5 +1,6 @@
 using Eto.WinForms.Drawing;
 using Eto.WinForms.Forms.Menu;
+using System.ComponentModel;
 namespace Eto.WinForms.Forms
 {
 	public interface IWindowsControl : Control.IHandler
@@ -111,6 +112,7 @@ namespace Eto.WinForms.Forms
 		public class PanelBase<THandler> : swf.Panel
 			where THandler : WindowsControl<TControl, TWidget, TCallback>
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public THandler Handler { get; set; }
 
 			public PanelBase(THandler handler = null)

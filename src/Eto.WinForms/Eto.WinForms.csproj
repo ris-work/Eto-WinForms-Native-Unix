@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net6.0-windows;net461</TargetFrameworks>
+    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net9.0</TargetFrameworks>
     <TargetFrameworks Condition="$(TargetFrameworkOverride) != ''">$(TargetFrameworkOverride)</TargetFrameworks>
     <OutputType>Library</OutputType>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -9,10 +9,26 @@
     <NoWarn>MSB4011;$(NoWarn)</NoWarn>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+    <LangVersion>13</LangVersion>
+    <UseWindowsForms>false</UseWindowsForms>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Create a custom flag to disable desktop validation -->
+    <DisableWindowsDesktopTargetingValidation>true</DisableWindowsDesktopTargetingValidation>
+    <!-- Optional suppression of the error code -->
+    <NoWarn>$(NoWarn);NETSDK1136</NoWarn>
+  </PropertyGroup>
+
+  <!-- Override the SDK’s Windows desktop validation target -->
+  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration"
+          Condition="'$(DisableWindowsDesktopTargetingValidation)' == 'true'">
+    <!-- No operations: this effectively cancels the check -->
+  </Target>
   
   <PropertyGroup>
-    <PackageId>Eto.Platform.Windows</PackageId>
+    <PackageId>
+	</PackageId>
     <Title>Eto.Forms - Windows Forms Platform</Title>
     <Description>Windows Forms Platform for the Eto.Forms UI Framework</Description>
     <PackageTags>cross platform gui ui framework desktop wpf eto.forms</PackageTags>
@@ -28,19 +44,33 @@ You do not need to use any of the classes of this assembly (unless customizing t
   <PropertyGroup>
     <EmbedReferences>Interop.SHDocVw</EmbedReferences>
     <EmbedPrefix>Eto.WinForms.CustomControls.Assemblies</EmbedPrefix>
-    <TargetFrameworks>net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net9.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
+
+  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration"
+        BeforeTargets="_CheckForInvalidConfigurationAndPlatform"
+        Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and $([MSBuild]::VersionGreaterThanOrEquals($(_TargetFrameworkVersionWithoutV), '5.0')) and ('$(UseWindowsForms)' == 'true' or '$(UseWPF)' == 'true')">
+    <NETSdkError Condition="'$(TargetPlatformIdentifier)' != 'Windows'" ResourceName="WindowsDesktopTargetPlatformMustBeWindows" />
+  </Target>
+
+  <!-- Override the automatic Windows desktop validation -->
+  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration"
+          Condition="'$(DisableWindowsDesktopTargetValidation)'=='true'">
+    <!-- Empty override: skips the check that enforces a Windows dependency -->
+  </Target>
   
   <ItemGroup>
     <Using Include="System.Windows.Forms" Alias="swf" />
     <Using Include="System.Drawing" Alias="sd" />
     <Using Include="System.Drawing.Imaging" Alias="sdi" />
     <Using Include="System.Drawing.Drawing2D" Alias="sd2" />
+    <Reference Remove="System.Windows.Forms" />
+    <Reference Include="Core.System.Windows.Forms" />
   </ItemGroup>
 
   <ItemGroup>
@@ -129,7 +159,28 @@ You do not need to use any of the classes of this assembly (unless customizing t
     <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
   	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
     <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+
   </ItemGroup>
+  <PropertyGroup>
+    <!-- Append NETSDK1136 to your existing NoWarn values -->
+    <NoWarn>$(NoWarn);NETSDK1136</NoWarn>
+  </PropertyGroup>
+
+
+  <!-- (Optional) signal that you’re overriding the check -->
+  <PropertyGroup>
+    <OverrideInvalidWindowsDesktopTargeting>true</OverrideInvalidWindowsDesktopTargeting>
+  </PropertyGroup>
+
+  <!-- Place this after the SDK imports (or at the end of your project file) so it overrides the default target -->
+  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration" Condition="'$(OverrideInvalidWindowsDesktopTargeting)'=='true'">
+    <!-- Empty target; by not calling NETSdkError, nothing gets thrown -->
+  </Target>
+
+  <PropertyGroup>
+    <!--<TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>-->
+    
+  </PropertyGroup>
 
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">

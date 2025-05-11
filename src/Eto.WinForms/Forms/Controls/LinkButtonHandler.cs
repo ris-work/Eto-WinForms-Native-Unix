@@ -1,9 +1,12 @@
-﻿namespace Eto.WinForms.Forms.Controls
+using System.ComponentModel;
+
+namespace Eto.WinForms.Forms.Controls
 {
 	public class LinkButtonHandler : WindowsControl<swf.LinkLabel, LinkButton, LinkButton.ICallback>, LinkButton.IHandler
 	{
 		public class EtoLink : swf.LinkLabel
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public override sd.Font Font
 			{
 				get
@@ -17,6 +20,7 @@
 				}
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public override string Text
 			{
 				get

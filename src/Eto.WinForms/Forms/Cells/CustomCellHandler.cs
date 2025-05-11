@@ -1,4 +1,5 @@
 using Eto.WinForms.Drawing;
+using System.ComponentModel;
 
 namespace Eto.WinForms.Forms.Cells
 {
@@ -6,16 +7,21 @@ namespace Eto.WinForms.Forms.Cells
 	{
 		public class EtoEditType : swf.Control, swf.IDataGridViewEditingControl
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public EtoCell Cell { get; set; }
 
 			public EtoEditType()
 			{
 			}
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public swf.DataGridView EditingControlDataGridView { get; set; }
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public object EditingControlFormattedValue { get; set; }
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public int EditingControlRowIndex { get; set; }
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public bool EditingControlValueChanged { get; set; } = true;
 
 			public swf.Cursor EditingPanelCursor => swf.Cursors.Default;

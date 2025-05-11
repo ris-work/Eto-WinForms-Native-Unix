@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0-windows</TargetFrameworks>
+    <TargetFrameworks>net9.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <ApplicationIcon>..\Eto.Test\Images\TestIcon.ico</ApplicationIcon>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>false</UseWindowsForms>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -20,6 +20,20 @@
     <Using Include="System.Drawing.Imaging" Alias="sdi" />
     <Using Include="System.Drawing.Drawing2D" Alias="sd2" />
   </ItemGroup>
+
+  <!-- (Optional) signal that you’re overriding the check -->
+  <PropertyGroup>
+    <OverrideInvalidWindowsDesktopTargeting>true</OverrideInvalidWindowsDesktopTargeting>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha6" />
+    <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Compile Include="..\..\src\Eto.WinForms\Win32.cs">
@@ -40,7 +54,6 @@
   
   <ItemGroup>
     <PackageReference Include="NUnit" Version="4.3.2" />
-  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

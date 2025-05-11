@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms.Controls
 {
 	public class TextAreaHandler : TextAreaHandler<TextArea, TextArea.ICallback>
@@ -7,6 +9,7 @@ namespace Eto.WinForms.Forms.Controls
 
 	public class EtoRichTextBox : swf.RichTextBox
 	{
+		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public bool AcceptsReturn { get; set; }
 
 		protected override bool IsInputKey(swf.Keys keyData)

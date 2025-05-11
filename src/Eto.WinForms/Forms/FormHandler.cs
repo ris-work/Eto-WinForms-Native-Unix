@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms
 {
 	public delegate void WndProcDelegate(ref swf.Message m);
@@ -31,6 +33,7 @@ namespace Eto.WinForms.Forms
 		{
 			bool hideFromAltTab;
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public bool HideFromAltTab
 			{
 				get { return hideFromAltTab; }
@@ -44,6 +47,7 @@ namespace Eto.WinForms.Forms
 				}
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public bool ShouldShowWithoutActivation { get; set; }
 
 			protected override bool ShowWithoutActivation => ShouldShowWithoutActivation;
@@ -67,6 +71,7 @@ namespace Eto.WinForms.Forms
 			}
 
 			bool shouldAllowFocus = true;
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public bool ShouldAllowFocus
 			{
 				get { return shouldAllowFocus; }

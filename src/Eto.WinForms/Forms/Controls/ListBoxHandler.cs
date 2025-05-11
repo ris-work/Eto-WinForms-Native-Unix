@@ -1,4 +1,5 @@
 using Eto.WinForms.Drawing;
+using System.ComponentModel;
 namespace Eto.WinForms.Forms.Controls
 {
 	public class ListBoxHandler : WindowsControl<swf.ListBox, ListBox, ListBox.ICallback>, ListBox.IHandler
@@ -20,6 +21,7 @@ namespace Eto.WinForms.Forms.Controls
 				ResizeRedraw = false;
 			}
 
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public override sd.Font Font
 			{
 				get { return base.Font; }

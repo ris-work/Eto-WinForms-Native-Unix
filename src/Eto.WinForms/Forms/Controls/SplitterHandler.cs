@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Eto.WinForms.Forms.Controls
 {
 	public class SplitterHandler : WindowsControl<swf.SplitContainer, Splitter, Splitter.ICallback>, Splitter.IHandler
@@ -23,6 +25,7 @@ namespace Eto.WinForms.Forms.Controls
 
 		public class EtoSplitContainer : swf.SplitContainer
 		{
+			[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 			public SplitterHandler Handler { get; set; }
 
 			public override sd.Size GetPreferredSize(sd.Size proposedSize)
