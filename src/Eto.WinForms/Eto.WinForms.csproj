@@ -28,6 +28,7 @@ You do not need to use any of the classes of this assembly (unless customizing t
   <PropertyGroup>
     <EmbedReferences>Interop.SHDocVw</EmbedReferences>
     <EmbedPrefix>Eto.WinForms.CustomControls.Assemblies</EmbedPrefix>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -49,7 +50,6 @@ You do not need to use any of the classes of this assembly (unless customizing t
   <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) == 'true'">
     <Reference Include="System" Pack="False" />
     <Reference Include="System.Drawing" Pack="False" />
-    <Reference Include="System.Windows.Forms" Pack="False" />
     <Reference Include="System.Core" Pack="False" />
   </ItemGroup>
 
@@ -99,9 +99,6 @@ You do not need to use any of the classes of this assembly (unless customizing t
     <Compile Include="..\Eto.Wpf\Forms\TaskbarHandler.cs">
       <Link>Forms\TaskbarHandler.cs</Link>
     </Compile>
-    <Compile Include="..\Eto.Wpf\Forms\Controls\WebView2Handler.cs">
-      <Link>Forms\Controls\WebView2Handler.cs</Link>
-    </Compile>
     <Compile Include="..\Eto.Wpf\Forms\DataObjectHandler.cs">
       <Link>Forms\DataObjectHandler.cs</Link>
     </Compile>
@@ -128,8 +125,9 @@ You do not need to use any of the classes of this assembly (unless customizing t
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
-  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />
+    <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha6" />
+    <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
     <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
   </ItemGroup>
 

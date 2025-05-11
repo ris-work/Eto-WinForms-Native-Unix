@@ -1,4 +1,4 @@
-using cp = Microsoft.WindowsAPICodePack.Dialogs;
+/*using cp = Microsoft.WindowsAPICodePack.Dialogs;
 
 #if WINFORMS
 namespace Eto.WinForms.Forms
@@ -64,4 +64,4 @@ namespace Eto.Wpf.Forms
 			set { Control.InitialDirectory = value; }
 		}
 	}
-}
+}*/

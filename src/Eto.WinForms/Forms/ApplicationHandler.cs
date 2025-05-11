@@ -1,4 +1,3 @@
-using Microsoft.WindowsAPICodePack.Taskbar;
 namespace Eto.WinForms.Forms
 {
 	public class ApplicationHandler : WidgetHandler<object, Application, Application.ICallback>, Application.IHandler
@@ -72,22 +71,6 @@ namespace Eto.WinForms.Forms
 			set
 			{
 				badgeLabel = value;
-				if (TaskbarManager.IsPlatformSupported)
-				{
-					if (!string.IsNullOrEmpty(badgeLabel))
-					{
-						var bmp = new sd.Bitmap(14, 14, sd.Imaging.PixelFormat.Format32bppArgb);
-						using (var graphics = sd.Graphics.FromImage(bmp))
-						{
-							DrawBadgeLabel(bmp, graphics);
-						}
-						var icon = sd.Icon.FromHandle(bmp.GetHicon());
-
-						TaskbarManager.Instance.SetOverlayIcon(icon, badgeLabel);
-					}
-					else
-						TaskbarManager.Instance.SetOverlayIcon(null, null);
-				}
 			}
 		}
 		

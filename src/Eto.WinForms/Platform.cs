@@ -153,9 +153,6 @@ namespace Eto.WinForms
 			p.Add<OpenWithDialog.IHandler>(() => new OpenWithDialogHandler());
 			p.Add<PixelLayout.IHandler>(() => new PixelLayoutHandler());
 			p.Add<SaveFileDialog.IHandler>(() => new SaveFileDialogHandler());
-			if (Microsoft.WindowsAPICodePack.Dialogs.CommonFileDialog.IsPlatformSupported)
-				p.Add<SelectFolderDialog.IHandler>(() => new VistaSelectFolderDialogHandler());
-			else
 				p.Add<SelectFolderDialog.IHandler>(() => new SelectFolderDialogHandler());
 			p.Add<TableLayout.IHandler>(() => new TableLayoutHandler());
 			p.Add<UITimer.IHandler>(() => new UITimerHandler());
@@ -195,17 +192,11 @@ namespace Eto.WinForms
 
 		private WebView.IHandler Create_WebView2()
 		{
-			try
-			{
-				return WebView2Loader.Create();
-			}
-			catch
-			{
+
 				Debug.WriteLine("Warning: Could not create WebView2 handler. Add Microsoft.Web.WebView2 nuget package to your project to take advantage of the latest web control.");
 				// switch to SWF version for subsequent controls
 				UseSwfWebView();
 				return new WebViewHandler();
-			}
 		}
 	}
 }
