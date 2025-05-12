@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-windows;net10.0</TargetFrameworks>
+    <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <!--<ApplicationIcon>..\Eto.Test\Images\TestIcon.ico</ApplicationIcon>-->
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <UseWindowsForms>false</UseWindowsForms>
+    <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
+    <SelfContained>true</SelfContained>
+
+  </PropertyGroup>
+
+  <!-- If IsWindowsTarget is not set, default the runtime identifier to linux-x64 -->
+  <PropertyGroup Condition="'$(IsWindowsTarget)' != 'true'">
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <PublishSelfContained>true</PublishSelfContained>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--<ApplicationManifest>Manifest-HiDpi.manifest</ApplicationManifest>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System.Windows.Forms" Alias="swf" />
+    <Using Include="System.Drawing" Alias="sd" />
+    <Using Include="System.Drawing.Imaging" Alias="sdi" />
+    <Using Include="System.Drawing.Drawing2D" Alias="sd2" />
+  </ItemGroup>
+
+  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences" BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies" Condition="'$(IsWindowsTarget)' != 'true'">
+    <ItemGroup>
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App" />
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WindowsForms" />
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WPF" />
+    </ItemGroup>
+  </Target>
+
+  <!-- (Optional) signal that you’re overriding the check -->
+  <PropertyGroup>
+    <OverrideInvalidWindowsDesktopTargeting>true</OverrideInvalidWindowsDesktopTargeting>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha6" />
+    <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Include="..\..\src\Eto.WinForms\Win32.cs">
+      <Link>Win32.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Eto\Eto.csproj" />
+    <ProjectReference Include="..\..\src\Eto.WinForms\Eto.WinForms.csproj" />
+    <!--<ProjectReference Include="..\Eto.Test\Eto.Test.csproj" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<None Include="app.config" />
+    <None Include="app.manifest" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="4.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences" BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies" Condition="'$(IsWindowsTarget)' != 'true'">
+    <ItemGroup>
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App" />
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WindowsForms" />
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WPF" />
+    </ItemGroup>
+  </Target>
+
+</Project>
