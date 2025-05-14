@@ -1,17 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.22621</TargetFramework>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>Eto.Test.WinUI</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>AnyCPU;x64;arm64</Platforms>
     <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
     <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
-    <EnableMsixTooling>true</EnableMsixTooling>
+    <EnableMsixTooling>false</EnableMsixTooling>
     <WindowsPackageType>None</WindowsPackageType>
+    <UnoSourceGeneratorUnsecureBinLogEnabled>true</UnoSourceGeneratorUnsecureBinLogEnabled>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -39,6 +43,26 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Eto.WinUI\Eto.WinUI.csproj" />
     <ProjectReference Include="..\Eto.Test\Eto.Test.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <UnoUIUseRoslynSourceGenerators>true</UnoUIUseRoslynSourceGenerators>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Replace the missing DataGrid package reference: -->
+    <PackageReference Include="Uno.WinUI.Skia.Gtk" Version="5.6.0" />
+    <!--<PackageReference Include="Uno.WinRT" Version="5.6.0" />-->
+    <PackageReference Include="Uno.Toolkit.WinUI" Version="5.6.0" />
+    <PackageReference Include="Uno.WinUI" Version="5.6.0" />
+    <!--<PackageReference Include="Uno.WinRT" Version="5.7.0"/>-->
+    <!--<PackageReference Include="Uno.Toolkit.WinUI" Version="7.0.2" />-->
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.0.2" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls" Version="7.0.2" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Core" Version="7.0.2" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Layout" Version="7.0.2" />
+
+    <!-- Replace the Controls.Primitives reference with the correct Uno package: -->
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Primitives" Version="7.0.2" />
   </ItemGroup>
 
   <!-- 

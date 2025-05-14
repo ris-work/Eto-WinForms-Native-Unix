@@ -12,7 +12,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.0'">
     <!-- This property tells Uno’s source generation tasks to skip work on netstandard1.0 -->
-    <UnoSourceGenerationSkip>true</UnoSourceGenerationSkip>
+    <!--<UnoSourceGenerationSkip>true</UnoSourceGenerationSkip>-->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Update="WinRT.Runtime" ExcludeAssets="All" />
