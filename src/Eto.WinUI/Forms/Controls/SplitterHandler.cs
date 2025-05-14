@@ -1,13 +1,15 @@
 using Eto.WinUI.Forms;
+//using Windows.UI.Xaml;
 using Microsoft.UI.Xaml;
-using cwc = CommunityToolkit.WinUI.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
+using cwc = CommunityToolkit.WinUI.UI.Controls;
+//using Windows.UI.Xaml.Controls.Primitives;
 using muxcp = Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace Eto.WinUI.Forms.Controls;
 
 public class EtoGrid : muc.Grid //, IEtoWpfControl
 {
+	
 	public IWinUIFrameworkElement Handler { get; set; }
 
 	internal sw.Size BaseMeasureOverride(sw.Size constraint) => base.MeasureOverride(constraint);
@@ -76,7 +78,7 @@ public class SplitterHandler : WinUIContainer<EtoGrid, Splitter, Splitter.ICallb
 		_splitter = new cwc.GridSplitter
 		{
 			Background = new muxm.SolidColorBrush(mu.Colors.Blue),
-			IsThumbVisible = true,
+			//IsThumbVisible = true,
 			ResizeBehavior = cwc.GridSplitter.GridResizeBehavior.PreviousAndNext
 		};
 		_pane1 = new cwc.DockPanel { LastChildFill = true };

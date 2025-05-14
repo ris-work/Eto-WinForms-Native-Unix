@@ -23,19 +23,19 @@ public sealed partial class EtoBindingTextBlock : UserControl
 {
 	public EtoBindingTextBlock()
 	{
-		this.InitializeComponent();
+		//this.InitializeComponent();
 		DataContextChanged += EtoBindingTextBlock_DataContextChanged;
 		Loaded += EtoBindingTextBlock_Loaded;
 	}
 
 	private void EtoBindingTextBlock_Loaded(object sender, RoutedEventArgs e)
 	{
-		Content.Text = Binding?.GetValue(DataContext);
+		//Content.Text = Binding?.GetValue(DataContext);
 	}
 
 	private void EtoBindingTextBlock_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
 	{
-		Content.Text = Binding?.GetValue(DataContext);
+		//Content.Text = Binding?.GetValue(DataContext);
 	}
 
 	private IIndirectBinding<string> _binding;

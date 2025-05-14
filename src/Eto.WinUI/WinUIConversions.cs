@@ -111,7 +111,8 @@ public static class WinUIConversions
 
 	public static Windows.Graphics.PointInt32 ToWinUIPointInt32(this Point value)
 	{
-		return new Windows.Graphics.PointInt32(value.X, value.Y);
+		
+		return new Windows.Graphics.PointInt32 { X = value.X, Y= value.Y };
 	}
 
 	public static Point ToEto(this Windows.Graphics.PointInt32 value)

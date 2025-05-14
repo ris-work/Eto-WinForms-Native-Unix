@@ -1,10 +1,10 @@
 
-using CommunityToolkit.WinUI.Controls;
+using CommunityToolkit.WinUI.UI.Controls;
 using Windows.Security.Authentication.OnlineId;
 
 namespace Eto.WinUI.Forms.Controls;
 
-public class EtoDockPanel : CommunityToolkit.WinUI.Controls.DockPanel
+public class EtoDockPanel : CommunityToolkit.WinUI.UI.Controls.DockPanel
 {
 	public IWinUIFrameworkElement Handler { get; set; }
 	protected override wf.Size MeasureOverride(wf.Size availableSize)

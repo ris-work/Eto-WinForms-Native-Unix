@@ -1,4 +1,5 @@
 using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.UI;
 
 namespace Eto.WinUI.Forms.Controls;
 
@@ -117,6 +118,7 @@ public class TextAreaHandler : WinUIControl<muc.TextBox, TextArea, TextArea.ICal
 	}
 
 	muc.ScrollViewer ScrollViewer => Control.FindDescendant<muc.ScrollViewer>();
+	//muc.ScrollViewer ScrollViewer => Control.FindDescendant<muc.ScrollViewer>();
 
 	public void ScrollToStart()
 	{

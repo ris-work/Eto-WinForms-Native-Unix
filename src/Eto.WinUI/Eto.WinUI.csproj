@@ -1,15 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.22621</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>Eto.WinUI</RootNamespace>
-    <UseWinUI>true</UseWinUI>
-    <EnableMsixTooling>true</EnableMsixTooling>
-    <WindowsPackageType>None</WindowsPackageType>
+    <!--<UseWinUI>true</UseWinUI>-->
+    <!--<EnableMsixTooling>false</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>-->
     <PackageId>Eto.Platform.WinUI</PackageId>
     <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.0'">
+    <!-- This property tells Uno’s source generation tasks to skip work on netstandard1.0 -->
+    <UnoSourceGenerationSkip>true</UnoSourceGenerationSkip>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Update="WinRT.Runtime" ExcludeAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- This tells MSBuild to update the WinRT SDK reference so it contributes no assets -->
+    <PackageReference Update="Microsoft.Windows.SDK.Net.Ref" PrivateAssets="all" ExcludeAssets="all" />
+  </ItemGroup>
 
   <ItemGroup>
     <Using Include="Microsoft.UI.Xaml" Alias="mux" />
@@ -22,18 +33,24 @@
     <Using Include="Microsoft.UI" Alias="mu" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.WinUI.Controls.ColorPicker" Version="8.2.250402" />
-    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.250410001-experimental1" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.3916" />
-    <PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.2.250402" />
-    <PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.2.250402" />
-    <PackageReference Include="CommunityToolkit.WinUI.Helpers" Version="8.2.250402" />
+    <!-- Replace the missing DataGrid package reference: -->
+    <PackageReference Include="Uno.WinUI.Skia.Gtk" Version="5.6.0" />
+    <!--<PackageReference Include="Uno.WinRT" Version="5.7.0"/>-->
+    <!--<PackageReference Include="Uno.Toolkit.WinUI" Version="7.0.2" />-->
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.0.2" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls" Version="7.0.2" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Core" Version="7.0.2" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Layout" Version="7.0.2" />
+
+    <!-- Replace the Controls.Primitives reference with the correct Uno package: -->
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Primitives" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Eto\Eto.csproj" />
   </ItemGroup>
+
 
 </Project>
