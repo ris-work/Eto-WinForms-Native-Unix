@@ -1,0 +1,66 @@
+﻿<Project Sdk="Uno.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net9.0-ios;net9.0-android;net9.0-windows10.0.26100;net9.0-browserwasm;net9.0-desktop</TargetFrameworks>
+    <UnoSingleProject>true</UnoSingleProject>
+    <OutputType>Library</OutputType>
+    <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>13</LangVersion>
+
+    <!--
+      UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
+      https://aka.platform.uno/singleproject-features
+    -->
+    <!--
+    <UnoFeatures></UnoFeatures>
+    -->
+  </PropertyGroup>
+  <ItemGroup>
+    <!--<Compile Remove="..\*.cs" />
+    <Compile Remove="..\**\*.cs" />-->
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <!--
+    If you encounter this error message:
+
+      error NETSDK1148: A referenced assembly was compiled using a newer version of Microsoft.Windows.SDK.NET.dll.
+      Please update to a newer .NET SDK in order to reference this assembly.
+
+    This means that the two packages below must be aligned with the "build" version number of
+    the "Microsoft.Windows.SDK.BuildTools" package above, and the "revision" version number
+    must be the highest found in https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref.
+    -->
+    <!-- <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22621.28" />
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22621.28" /> -->
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Microsoft.UI.Xaml" Alias="mux" />
+    <Using Include="Microsoft.UI.Xaml.Media" Alias="muxm" />
+    <Using Include="Microsoft.UI.Dispatching" Alias="mud" />
+    <Using Include="Microsoft.UI.Xaml.Controls" Alias="muc" />
+    <Using Include="Windows.Foundation" Alias="sw" />
+    <Using Include="Windows.Foundation" Alias="wf" />
+    <Using Include="Windows.UI" Alias="wu" />
+    <Using Include="Microsoft.UI" Alias="mu" />
+    <Using Include="Eto.Forms.Container" Alias="Container" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Eto\Eto.csproj" />
+    <ProjectReference Include="..\..\Eto.Serialization.Json\Eto.Serialization.Json.csproj" />
+    <ProjectReference Include="..\..\Eto.Serialization.Xaml\Eto.Serialization.Xaml.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Uno.CommunityToolkit.Common" Version="7.1.204" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI" Version="7.1.204" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls" Version="7.1.204" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Core" Version="7.1.204" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.204" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Input" Version="7.1.204" />
+    <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Layout" Version="7.1.204" />
+  </ItemGroup>
+</Project>
