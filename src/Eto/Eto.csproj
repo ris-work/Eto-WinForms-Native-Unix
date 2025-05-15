@@ -1,5 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <!--<TargetFrameworks>net9.0</TargetFrameworks>-->
     <TargetFrameworks>net9.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors Condition="$(Configuration) == 'Release'">true</TreatWarningsAsErrors>
@@ -46,4 +47,8 @@ https://github.com/picoe/Eto/wiki
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
+  <PropertyGroup>
+    <!-- This tells NuGet that if a platform-specific target (e.g., net9.0-android) is used, fallback to net9.0 assets -->
+    <AssetTargetFallback>$(AssetTargetFallback);net9.0</AssetTargetFallback>
+  </PropertyGroup>
 </Project>
