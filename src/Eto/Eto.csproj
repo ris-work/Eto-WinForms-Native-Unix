@@ -50,5 +50,7 @@ https://github.com/picoe/Eto/wiki
   <PropertyGroup>
     <!-- This tells NuGet that if a platform-specific target (e.g., net9.0-android) is used, fallback to net9.0 assets -->
     <AssetTargetFallback>$(AssetTargetFallback);net9.0</AssetTargetFallback>
+    <DisableImplicitAssetTargetFallback>true</DisableImplicitAssetTargetFallback>
   </PropertyGroup>
+ 
 </Project>
