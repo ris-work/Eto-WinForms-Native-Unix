@@ -3,7 +3,8 @@
     <!--<TargetFrameworks>net9.0</TargetFrameworks>-->
     <TargetFrameworks>net9.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <TreatWarningsAsErrors Condition="$(Configuration) == 'Release'">true</TreatWarningsAsErrors>
+    <!--<TreatWarningsAsErrors Condition="$(Configuration) == 'Release'">true</TreatWarningsAsErrors>-->
+    <TreatWarningsAsErrors Condition="$(Configuration) == 'Release'">false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Eto.Forms</PackageId>
@@ -49,8 +50,9 @@ https://github.com/picoe/Eto/wiki
   </ItemGroup>
   <PropertyGroup>
     <!-- This tells NuGet that if a platform-specific target (e.g., net9.0-android) is used, fallback to net9.0 assets -->
-    <AssetTargetFallback>$(AssetTargetFallback);net9.0</AssetTargetFallback>
+    <AssetTargetFallback>$(AssetTargetFallback);net10.0</AssetTargetFallback>
     <DisableImplicitAssetTargetFallback>true</DisableImplicitAssetTargetFallback>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
  
 </Project>

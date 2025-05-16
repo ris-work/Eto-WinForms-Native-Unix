@@ -9,6 +9,7 @@
     <PackageId>Eto.Platform.WinUI</PackageId>
     <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.0'">
     <!-- This property tells Uno’s source generation tasks to skip work on netstandard1.0 -->

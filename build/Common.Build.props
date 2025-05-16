@@ -53,7 +53,7 @@
     <Using Include="System.Threading.Tasks" />
     <Using Include="Eto.Forms" />
     <Using Include="Eto.Drawing" />
-    <Using Include="Eto.Forms.Container" Alias="Container" />
+    <!--<Using Include="Eto.Forms.Container" Alias="Container" />-->
     <Using Include="Eto.Forms.Calendar" Alias="Calendar" />
     <Using Include="System.ComponentModel" Alias="sc" />
     <Using Include="System.Windows.Input.ICommand" Alias="ICommand" />

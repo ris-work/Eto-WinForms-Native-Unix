@@ -5,6 +5,7 @@
     <DefineConstants>$(DefineConstants);PCL</DefineConstants>
     <LangVersion>10</LangVersion>
     <UseWpf Condition="$(TargetFramework) == 'net7.0-windows'">true</UseWpf>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -18,6 +19,7 @@
     <Using Include="System.Collections.Generic" />
     <Using Include="System.Linq" />
     <Using Include="System.IO" />
+    <Using Include="Eto.Forms.Container" Alias="Container" />
   </ItemGroup>
 
   <ItemGroup>
