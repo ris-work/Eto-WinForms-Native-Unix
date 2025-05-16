@@ -1,5 +1,5 @@
 using CommunityToolkit.WinUI;
-using CommunityToolkit.WinUI.UI;
+using CommunityToolkit.WinUI;
 
 namespace Eto.WinUI.Forms.Controls;
 

@@ -1,7 +1,7 @@
 using Eto.WinUI.Forms;
 //using Windows.UI.Xaml;
 using Microsoft.UI.Xaml;
-using cwc = CommunityToolkit.WinUI.UI.Controls;
+using cwc = CommunityToolkit.WinUI.Controls;
 //using Windows.UI.Xaml.Controls.Primitives;
 using muxcp = Microsoft.UI.Xaml.Controls.Primitives;
 

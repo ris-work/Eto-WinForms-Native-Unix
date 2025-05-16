@@ -1,12 +1,14 @@
 
-using CommunityToolkit.WinUI.UI.Controls;
+using CommunityToolkit.WinUI.Controls;
+
 using Windows.Security.Authentication.OnlineId;
 //using mc = Microsoft.UI.Xaml.Controls;
 using Eto.Forms;
+using msc = Microsoft.UI.Xaml.Controls;
 
 namespace Eto.WinUI.Forms.Controls;
 
-public partial class EtoDockPanel : CommunityToolkit.WinUI.UI.Controls.DockPanel
+public partial class EtoDockPanel : CommunityToolkit.WinUI.Controls.DockPanel
 {
 	public IWinUIFrameworkElement Handler { get; set; }
 	protected override wf.Size MeasureOverride(wf.Size availableSize)
