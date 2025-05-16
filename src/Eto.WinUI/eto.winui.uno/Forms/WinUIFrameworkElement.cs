@@ -176,7 +176,7 @@ public abstract partial class WinUIFrameworkElement<TControl, TWidget, TCallback
 	{
 	}
 
-	public virtual void SetParent(Eto.Forms.Container oldParent, Eto.Forms.Container newParent)
+	public virtual void SetParent(EtoContainer.Container oldParent, EtoContainer.Container newParent)
 	{
 	}
 

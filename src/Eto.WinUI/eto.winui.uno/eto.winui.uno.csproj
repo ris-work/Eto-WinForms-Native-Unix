@@ -50,7 +50,7 @@
     <Using Include="Windows.Foundation" Alias="wf" />
     <Using Include="Windows.UI" Alias="wu" />
     <Using Include="Microsoft.UI" Alias="mu" />
-    <Using Include="Eto.Forms.Container" Alias="Container" />
+    <Using Include="Eto.Forms" Alias="EtoContainer" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Uno.WinUI" Version="6.0.465" />
     <PackageReference Include="Uno.CommunityToolkit.Common" Version="7.1.204" />
     <PackageReference Include="Uno.CommunityToolkit.WinUI" Version="7.1.204" />
     <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls" Version="7.1.204" />
