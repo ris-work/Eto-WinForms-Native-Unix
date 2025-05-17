@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "eto.test.winui",
+  "display": "standalone",
+  "name": "eto.test.winui",
+  "short_name": "eto.test.winui",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
