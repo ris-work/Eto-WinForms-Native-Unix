@@ -23,7 +23,7 @@ public sealed partial class EtoBindingTextBlock : UserControl
 {
 	public EtoBindingTextBlock()
 	{
-		//this.InitializeComponent();
+		this.InitializeComponent();
 		DataContextChanged += EtoBindingTextBlock_DataContextChanged;
 		Loaded += EtoBindingTextBlock_Loaded;
 	}

@@ -8,6 +8,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>13</LangVersion>
+    <AssemblyName>Eto.WinUI</AssemblyName>
 
     <!--
       UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
@@ -16,6 +17,9 @@
     <!--
     <UnoFeatures></UnoFeatures>
     -->
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
   <ItemGroup>
     <!--<Compile Remove="..\*.cs" />
