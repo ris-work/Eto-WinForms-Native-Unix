@@ -1,0 +1,40 @@
+﻿<Project Sdk="Uno.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\src\Eto.WinUI\Eto.WinUI.U\Eto.WinUI.U.csproj" >
+           <!-- <Aliases>EtoRef</Aliases>-->
+        </ProjectReference>
+        <ProjectReference Include="..\..\Eto.Test\Eto.Test.csproj" />
+
+    </ItemGroup>
+    <PropertyGroup>
+        <AssemblyName>Eto.Test.WinUI</AssemblyName>
+        <RootNamespace>Eto.Test.WinUI</RootNamespace>
+    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-android;net9.0-ios;net9.0-browserwasm;net9.0-desktop</TargetFrameworks>
+
+    <OutputType>Exe</OutputType>
+    <UnoSingleProject>true</UnoSingleProject>
+
+    <!-- Display name -->
+    <ApplicationTitle>Eto.Test.UWinUI</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>com.companyname.eto-test-uwinui</ApplicationId>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <!-- Package Publisher -->
+    <ApplicationPublisher>Eto.Test.UWinUI</ApplicationPublisher>
+    <!-- Package Description -->
+    <Description>Eto.Test.UWinUI powered by Uno Platform.</Description>
+
+    <!--
+      UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
+      https://aka.platform.uno/singleproject-features
+    -->
+    <UnoFeatures>
+      SkiaRenderer;
+    </UnoFeatures>
+  </PropertyGroup>
+
+</Project>

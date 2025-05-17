@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "Eto.Test.UWinUI",
+  "display": "standalone",
+  "name": "Eto.Test.UWinUI",
+  "short_name": "Eto.Test.UWinUI",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
