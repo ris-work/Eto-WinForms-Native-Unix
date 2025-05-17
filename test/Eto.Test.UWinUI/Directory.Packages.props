@@ -7,4 +7,10 @@
   -->
   <ItemGroup>
   </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="SkiaSharp" Version="3.119.0" />
+    <PackageVersion Include="SkiaSharp.Views" Version="3.119.0" />
+    <PackageVersion Include="Uno.WinUI.Runtime.WebAssembly" Version="6.0.465" />
+    <PackageVersion Include="Uno.WinUI.WebAssembly" Version="6.0.465" />
+  </ItemGroup>
 </Project>

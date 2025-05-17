@@ -23,16 +23,46 @@ public class ApplicationHandler : WidgetHandler<mux.Application, Application, Ap
 
 	public void Attach(object context)
 	{
-		Control = context as mux.Application;
+		if (context is mux.Application Control)
+		{
+			//Control = context as mux.Application;
 
-		Control.Resources.MergedDictionaries.Add(
-			new mux.ResourceDictionary
-			{
-				
-				Source = new Uri("ms-appx:///Eto.WinUI/Forms/Controls/BindingTemplates.xaml")
-			});
+			Control.Resources.MergedDictionaries.Add(
+				new mux.ResourceDictionary
+				{
 
-		Callback.OnInitialized(Widget, EventArgs.Empty);
+					Source = new Uri("ms-appx:///Eto.WinUI/Forms/Controls/BindingTemplates.xaml")
+				});
+
+			Callback.OnInitialized(Widget, EventArgs.Empty);
+		}
+		else if (context is mux.FrameworkElement ControlFE)
+		{
+			//Control = context as mux.Application;
+
+			ControlFE.Resources.MergedDictionaries.Add(
+				new mux.ResourceDictionary
+				{
+
+					Source = new Uri("ms-appx:///Eto.WinUI/Forms/Controls/BindingTemplates.xaml")
+				});
+
+			Callback.OnInitialized(Widget, EventArgs.Empty);
+		}
+		else
+		{
+			System.Console.WriteLine($"{context.GetType()}");
+			Control = context as mux.Application;
+
+			Control.Resources.MergedDictionaries.Add(
+				new mux.ResourceDictionary
+				{
+
+					Source = new Uri("ms-appx:///Eto.WinUI/Forms/Controls/BindingTemplates.xaml")
+				});
+
+			Callback.OnInitialized(Widget, EventArgs.Empty);
+		}
 	}
 
 	protected override void Initialize()

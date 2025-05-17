@@ -3,7 +3,7 @@
     x:Class="Eto.Test.UWinUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:eto.test.winui">
+    xmlns:local="using:Eto.Test.UWinUI">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -1,10 +1,18 @@
-<Project Sdk="Uno.Sdk">
+﻿<Project Sdk="Uno.Sdk">
     <ItemGroup>
-        <ProjectReference Include="..\..\..\src\Eto.WinUI\Eto.WinUI.U\Eto.WinUI.U.csproj" >
+        <ProjectReference Include="..\..\..\src\Eto.WinUI\Eto.WinUI.U\Eto.WinUI.U.csproj">
             <!--<Aliases>EtoRef</Aliases>-->
         </ProjectReference>
         <ProjectReference Include="..\..\Eto.Test\Eto.Test.csproj" />
 
+    </ItemGroup>
+    <ItemGroup />
+    <ItemGroup>
+      <!--<PackageReference Include="Uno.WinUI.Runtime.WebAssembly" />-->
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="SkiaSharp" />
+      <PackageReference Include="SkiaSharp.Views" />
     </ItemGroup>
     <PropertyGroup>
         <AssemblyName>Eto.Test.WinUI</AssemblyName>
@@ -34,12 +42,22 @@
       UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
       https://aka.platform.uno/singleproject-features
     -->
+      <WasmBuildNative>true</WasmBuildNative>
     <UnoFeatures>
-      SkiaRenderer;
+        <!--SkiaRenderer;-->
     </UnoFeatures>
   </PropertyGroup>
     <PropertyGroup>
         <UnoUISourceGeneratorDebuggerBreak>True</UnoUISourceGeneratorDebuggerBreak>
     </PropertyGroup>
+    <!--<ItemGroup>
+        <PackageReference Remove="Uno.WinUI.Runtime.WebAssembly" />
+        <PackageReference Remove="Uno.WinUI.WebAssembly" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Remove="Uno.SkiaSharp.Views" />
+    </ItemGroup>-->
+    
+
 
 </Project>

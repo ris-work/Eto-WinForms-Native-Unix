@@ -9,7 +9,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Eto.Forms;
-using Uno.Resizetizer;
+//using Uno.Resizetizer;
 using Uno.UI;
 using Microsoft.UI.Xaml.Controls;
 
@@ -41,7 +41,7 @@ namespace Eto.Test.UWinUI
         {
             MainWindow = new Microsoft.UI.Xaml.Window();
 #if DEBUG
-            MainWindow.UseStudio();
+            //MainWindow.UseStudio();
 #endif
 
 
@@ -65,10 +65,39 @@ namespace Eto.Test.UWinUI
                 // parameter
                 rootFrame.Navigate(typeof(MainPage), args.Arguments);
             }
-            app.Attach(this);
-            MainWindow.SetWindowIcon();
+
+
+            //MainWindow.SetWindowIcon();
             // Ensure the current window is active
-            MainWindow.Activate();
+
+            //MainWindow.Activate();
+
+            //app.Attach(app);
+            //MainWindow.Activate();
+            app.Initialized += (_, _) => { 
+                Console.Error.WriteLine("Initialized");
+                foreach (var window in ApplicationHelper.Windows)
+                {
+                    Console.WriteLine($"Title: {window.Title}");
+                    //window.Activate();
+                }
+                ApplicationHelper.Windows[1].Closed += (_, _) => { Console.WriteLine("Exiting..."); this.Exit();  };
+                ApplicationHelper.Windows[1].Activate();
+                
+            };
+            app.Terminating += (_, _) => {
+                Console.Error.WriteLine("Terminating...");
+                foreach (var window in ApplicationHelper.Windows)
+                {
+                    Console.WriteLine($"Title: {window.Title}");
+                    window.Close();
+                }
+                
+            };
+            var EA = app.Attach(rootFrame);
+            //rootFrame.Content = ((FrameworkElement)EA.ControlObject);
+            
+            
         }
 
 
