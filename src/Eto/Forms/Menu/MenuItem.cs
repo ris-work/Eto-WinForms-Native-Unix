@@ -57,10 +57,10 @@ public abstract class MenuItem : Menu, ICommandItem
 	/// </summary>
 	/// <remarks>
 	/// This will invoke the specified command when the menu item is pressed.
-	/// The <see cref="ICommand.CanExecute"/> will also used to set the enabled/disabled state of the menu item.
+	/// The <see cref="global::System.Windows.Input.ICommand.CanExecute"/> will also used to set the enabled/disabled state of the menu item.
 	/// </remarks>
 	/// <value>The command to invoke.</value>
-	public ICommand Command
+	public global::System.Windows.Input.ICommand Command
 	{
 		get => Properties.GetCommand(Command_Key);
 		set
@@ -71,7 +71,7 @@ public abstract class MenuItem : Menu, ICommandItem
 		}
 	}
 
-	internal virtual void SetCommand(ICommand oldValue, ICommand newValue)
+	internal virtual void SetCommand(global::System.Windows.Input.ICommand oldValue, global::System.Windows.Input.ICommand newValue)
 	{
 		Properties.SetCommand(Command_Key, newValue, e => Enabled = e, r => Click += r, r => Click -= r, () => CommandParameter);
 		HandleEvent(ValidateEvent);

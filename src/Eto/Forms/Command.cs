@@ -150,7 +150,7 @@ public class RadioCommand : CheckCommand
 /// <remarks>
 /// Commands allow you to create a single class that can be used for both menu and tool items.
 /// </remarks>
-public class Command : IBindable, ICommand
+public class Command : IBindable, global::System.Windows.Input.ICommand
 {
 	#region Events
 
@@ -345,10 +345,10 @@ public class Command : IBindable, ICommand
 	/// 
 	/// myForm.DataContext = new MyModel { MyModelCommand = ... };
 	/// </code>
-	/// The <see cref="ICommand.CanExecute"/> will also used to set the enabled/disabled state of the current command.
+	/// The <see cref="global::System.Windows.Input.ICommand.CanExecute"/> will also used to set the enabled/disabled state of the current command.
 	/// </remarks>
 	/// <value>The command to invoke.</value>
-	public ICommand DelegatedCommand
+	public global::System.Windows.Input.ICommand DelegatedCommand
 	{
 		get { return Properties.GetCommand(Command_Key); }
 		set { Properties.SetCommand(Command_Key, value, e => Enabled = e, r => Executed += r, r => Executed -= r, () => CommandParameter); }
@@ -366,18 +366,18 @@ public class Command : IBindable, ICommand
 		set { Properties.Set(CommandParameter_Key, value, () => Properties.UpdateCommandCanExecute(Command_Key)); }
 	}
 
-	event EventHandler ICommand.CanExecuteChanged
+	event EventHandler global::System.Windows.Input.ICommand.CanExecuteChanged
 	{
 		add { EnabledChanged += new EventHandler<EventArgs>(value.Invoke); }
 		remove { EnabledChanged -= new EventHandler<EventArgs>(value.Invoke); }
 	}
 
-	bool ICommand.CanExecute(object parameter)
+	bool global::System.Windows.Input.ICommand.CanExecute(object parameter)
 	{
 		return Enabled;
 	}
 
-	void ICommand.Execute(object parameter)
+	void global::System.Windows.Input.ICommand.Execute(object parameter)
 	{
 		Execute();
 	}

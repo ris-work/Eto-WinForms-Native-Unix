@@ -43,10 +43,10 @@ public class RadioButton : TextControl
 	/// </summary>
 	/// <remarks>
 	/// This will invoke the specified command when the radio button is pressed.
-	/// The <see cref="ICommand.CanExecute"/> will also used to set the enabled/disabled state of the button.
+	/// The <see cref="global::System.Windows.Input.ICommand.CanExecute"/> will also used to set the enabled/disabled state of the button.
 	/// </remarks>
 	/// <value>The command to invoke.</value>
-	public ICommand Command
+	public global::System.Windows.Input.ICommand Command
 	{
 		get { return Properties.GetCommand(Command_Key); }
 		set { Properties.SetCommand(Command_Key, value, e => Enabled = e, r => Click += r, r => Click -= r, () => CommandParameter); }

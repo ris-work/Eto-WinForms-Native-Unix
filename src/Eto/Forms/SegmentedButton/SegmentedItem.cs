@@ -138,10 +138,10 @@ public abstract class SegmentedItem : BindableWidget
 	/// </summary>
 	/// <remarks>
 	/// This will invoke the specified command when the segmented item is pressed.
-	/// The <see cref="ICommand.CanExecute"/> will also used to set the enabled/disabled state of the segmented item.
+	/// The <see cref="global::System.Windows.Input.ICommand.CanExecute"/> will also used to set the enabled/disabled state of the segmented item.
 	/// </remarks>
 	/// <value>The command to invoke.</value>
-	public ICommand Command
+	public global::System.Windows.Input.ICommand Command
 	{
 		get { return Properties.GetCommand(Command_Key); }
 		set
@@ -152,7 +152,7 @@ public abstract class SegmentedItem : BindableWidget
 		}
 	}
 
-	internal virtual void SetCommand(ICommand oldValue, ICommand newValue)
+	internal virtual void SetCommand(global::System.Windows.Input.ICommand oldValue, global::System.Windows.Input.ICommand newValue)
 	{
 		if (oldValue is IValueCommand<bool> lastValueCommand)
 		{

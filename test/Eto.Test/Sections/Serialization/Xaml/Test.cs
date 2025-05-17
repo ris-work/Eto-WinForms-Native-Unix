@@ -35,7 +35,7 @@ namespace Eto.Test.Sections.Serialization.Xaml
 				}
 			}
 
-			public ICommand ClickMe
+			public global::System.Windows.Input.ICommand ClickMe
 			{
 				get { return new Command((sender, e) => MessageBox.Show("Clicked!")); }
 			}

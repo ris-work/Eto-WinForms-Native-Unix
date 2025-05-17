@@ -1,4 +1,4 @@
-﻿namespace Eto.Forms;
+namespace Eto.Forms;
 
 partial class Binding
 {
@@ -320,8 +320,8 @@ partial class Binding
 	/// Executes a command retrieved using the specified <paramref name="commandBinding"/> from the <paramref name="dataContext"/>.
 	/// </summary>
 	/// <remarks>
-	/// This helper method is useful for binding general events to fire an <see cref="ICommand"/> that is in your view model.
-	/// The command will only be executed if its <see cref="ICommand.CanExecute"/> returns <c>true</c>.
+	/// This helper method is useful for binding general events to fire an <see cref="global::System.Windows.Input.ICommand"/> that is in your view model.
+	/// The command will only be executed if its <see cref="global::System.Windows.Input.ICommand.CanExecute"/> returns <c>true</c>.
 	/// 
 	/// Most controls (e.g. <see cref="Eto.Forms.Button"/>) have a special Command parameter that can be set instead, 
 	/// which takes into account the enabled state of the command and will enable/disable the control automatically.
@@ -334,10 +334,10 @@ partial class Binding
 	/// panel.MouseDown += (sender, e) => Binding.ExecuteCommand(panel.DataContext, Binding.Property((MyModel m) => m.MyCommand));
 	/// </code>
 	/// </example>
-	/// <param name="dataContext">Data context object to get the ICommand via the commandBinding.</param>
-	/// <param name="commandBinding">Binding to get the ICommand from the data context</param>
+	/// <param name="dataContext">Data context object to get the global::System.Windows.Input.ICommand via the commandBinding.</param>
+	/// <param name="commandBinding">Binding to get the global::System.Windows.Input.ICommand from the data context</param>
 	/// <param name="parameter">Parameter to pass to the command when executing or checking if it can execute.</param>
-	public static void ExecuteCommand(object dataContext, IndirectBinding<ICommand> commandBinding, object parameter = null)
+	public static void ExecuteCommand(object dataContext, IndirectBinding<global::System.Windows.Input.ICommand> commandBinding, object parameter = null)
 	{
 		var command = commandBinding.GetValue(dataContext);
 		if (command != null && command.CanExecute(parameter))
@@ -348,8 +348,8 @@ partial class Binding
 	/// Executes a command retrieved using a property <paramref name="commandExpression"/> from the  <paramref name="dataContext"/>.
 	/// </summary>
 	/// <remarks>
-	/// This helper method is useful for binding general events to fire an <see cref="ICommand"/> that is in your view model.
-	/// The command will only be executed if its <see cref="ICommand.CanExecute"/> returns <c>true</c>.
+	/// This helper method is useful for binding general events to fire an <see cref="global::System.Windows.Input.ICommand"/> that is in your view model.
+	/// The command will only be executed if its <see cref="global::System.Windows.Input.ICommand.CanExecute"/> returns <c>true</c>.
 	/// 
 	/// Most controls (e.g. <see cref="Eto.Forms.Button"/>) have a special Command parameter that can be set instead, 
 	/// which takes into account the enabled state of the command and will enable/disable the control automatically.
@@ -362,10 +362,10 @@ partial class Binding
 	/// panel.MouseDown += (sender, e) => Binding.ExecuteCommand(panel.DataContext, (MyModel m) => m.MyCommand);
 	/// </code>
 	/// </example>
-	/// <param name="dataContext">Data context object to get the ICommand via the commandBinding.</param>
-	/// <param name="commandExpression">Property expression to get the ICommand from the data context</param>
+	/// <param name="dataContext">Data context object to get the global::System.Windows.Input.ICommand via the commandBinding.</param>
+	/// <param name="commandExpression">Property expression to get the global::System.Windows.Input.ICommand from the data context</param>
 	/// <param name="parameter">Parameter to pass to the command when executing or checking if it can execute.</param>
-	public static void ExecuteCommand<T>(object dataContext, Expression<Func<T, ICommand>> commandExpression, object parameter = null)
+	public static void ExecuteCommand<T>(object dataContext, Expression<Func<T, global::System.Windows.Input.ICommand>> commandExpression, object parameter = null)
 	{
 		ExecuteCommand(dataContext, Binding.Property(commandExpression), parameter);
 	}

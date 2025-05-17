@@ -30,7 +30,7 @@ public class CheckToolItem : ToolItem
 		Handler.CreateFromCommand(command);
 	}
 
-	internal override void SetCommand(ICommand oldValue, ICommand newValue)
+	internal override void SetCommand(global::System.Windows.Input.ICommand oldValue, global::System.Windows.Input.ICommand newValue)
 	{
 		if (oldValue is IValueCommand<bool> oldValueCommand)
 			oldValueCommand.ValueChanged -= ValueCommand_ValueChanged;

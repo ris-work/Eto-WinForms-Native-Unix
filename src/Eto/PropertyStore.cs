@@ -373,9 +373,9 @@ public class PropertyStore : Dictionary<object, object>
 		readonly Action<EventHandler<EventArgs>> removeExecute;
 		readonly Action<bool> setEnabled;
 		readonly Func<object> getArgument;
-		public ICommand Command { get; set; }
+		public global::System.Windows.Input.ICommand Command { get; set; }
 
-		public CommandWrapper(ICommand command, Action<bool> setEnabled, Action<EventHandler<EventArgs>> addExecute, Action<EventHandler<EventArgs>> removeExecute, Func<object> getParameter)
+		public CommandWrapper(global::System.Windows.Input.ICommand command, Action<bool> setEnabled, Action<EventHandler<EventArgs>> addExecute, Action<EventHandler<EventArgs>> removeExecute, Func<object> getParameter)
 		{
 			this.Command = command;
 			this.setEnabled = setEnabled;
@@ -415,7 +415,7 @@ public class PropertyStore : Dictionary<object, object>
 	}
 
 	/// <summary>
-	/// Sets an <see cref="ICommand"/> value for the specified property <paramref name="key"/>.
+	/// Sets an <see cref="global::System.Windows.Input.ICommand"/> value for the specified property <paramref name="key"/>.
 	/// </summary>
 	/// <param name="key">Key of the property to set</param>
 	/// <param name="value">Command instance</param>
@@ -424,7 +424,7 @@ public class PropertyStore : Dictionary<object, object>
 	/// <param name="removeExecute">Delegate to detach the execute event handler.</param>
 	/// <param name="getParameter">Delegate to get the parameter to pass to the command</param>
 	/// <seealso cref="GetCommand"/>
-	public void SetCommand(object key, ICommand value, Action<bool> setEnabled, Action<EventHandler<EventArgs>> addExecute, Action<EventHandler<EventArgs>> removeExecute, Func<object> getParameter)
+	public void SetCommand(object key, global::System.Windows.Input.ICommand value, Action<bool> setEnabled, Action<EventHandler<EventArgs>> addExecute, Action<EventHandler<EventArgs>> removeExecute, Func<object> getParameter)
 	{
 		var cmd = Get<CommandWrapper>(key);
 		if (cmd != null)
@@ -455,7 +455,7 @@ public class PropertyStore : Dictionary<object, object>
 	/// <returns>The command instance, or null if it is not set.</returns>
 	/// <param name="key">Key of the property to get.</param>
 	/// <seealso cref="SetCommand"/>
-	public ICommand GetCommand(object key)
+	public global::System.Windows.Input.ICommand GetCommand(object key)
 	{
 		var cmd = Get<CommandWrapper>(key);
 		return cmd != null ? cmd.Command : null;

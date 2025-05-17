@@ -75,10 +75,10 @@ public class Button : TextControl
 	/// </summary>
 	/// <remarks>
 	/// This will invoke the specified command when the button is pressed.
-	/// The <see cref="ICommand.CanExecute"/> will also be used to set the <see cref="Control.Enabled"/> state of the button.
+	/// The <see cref="global::System.Windows.Input.ICommand.CanExecute"/> will also be used to set the <see cref="Control.Enabled"/> state of the button.
 	/// </remarks>
 	/// <value>The command to invoke.</value>
-	public ICommand Command
+	public global::System.Windows.Input.ICommand Command
 	{
 		get { return Properties.GetCommand(Command_Key); }
 		set { Properties.SetCommand(Command_Key, value, e => Enabled = e, r => Click += r, r => Click -= r, () => CommandParameter); }
@@ -87,7 +87,7 @@ public class Button : TextControl
 	static readonly object CommandParameter_Key = new object();
 
 	/// <summary>
-	/// Gets or sets the parameter to pass to the <see cref="Command"/> when executing or determining its <see cref="ICommand.CanExecute"/> state.
+	/// Gets or sets the parameter to pass to the <see cref="Command"/> when executing or determining its <see cref="global::System.Windows.Input.ICommand.CanExecute"/> state.
 	/// </summary>
 	/// <value>The command parameter.</value>
 	public object CommandParameter

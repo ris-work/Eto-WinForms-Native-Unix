@@ -20,7 +20,11 @@
   </PropertyGroup>
   <PropertyGroup>
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
+  <ItemGroup>
+    <TrimmerRootDescriptor Include="linker.xml" />
+  </ItemGroup>
   <ItemGroup>
     <!--<Compile Remove="..\*.cs" />
     <Compile Remove="..\**\*.cs" />-->
@@ -68,6 +72,7 @@
       <Aliases>etoreal</Aliases>
     </PackageReference>
     <PackageReference Include="Eto.Forms" Version="2.9.0" />-->
+    
   </ItemGroup>
 
   <ItemGroup>

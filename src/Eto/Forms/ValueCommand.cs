@@ -1,4 +1,4 @@
-﻿namespace Eto.Forms;
+namespace Eto.Forms;
 
 /// <summary>
 /// Interface for a command that can provide a value
@@ -10,7 +10,7 @@
 /// type and have an event when the value changes programatically.
 /// </remarks>
 /// <seealso cref="ValueCommand{T}"/>
-public interface IValueCommand<T> : ICommand
+public interface IValueCommand<T> : global::System.Windows.Input.ICommand
 {
 	/// <summary>
 	/// Gets the current value in the command.

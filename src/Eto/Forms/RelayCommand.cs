@@ -39,7 +39,7 @@ public class RelayCommand : RelayCommand<object>
 /// <summary>
 /// Command to relay execution and execute state to delegates
 /// </summary>
-public class RelayCommand<T> : ICommand
+public class RelayCommand<T> : global::System.Windows.Input.ICommand
 {
 	readonly Action<T> execute;
 	readonly Predicate<T> canExecute;
