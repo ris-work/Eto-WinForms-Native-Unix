@@ -1,3 +1,5 @@
+using Eto.WinUI.U;
+
 namespace Eto.WinUI.Forms;
 
 public class ApplicationHandler : WidgetHandler<mux.Application, Application, Application.ICallback>, Application.IHandler
@@ -23,8 +25,10 @@ public class ApplicationHandler : WidgetHandler<mux.Application, Application, Ap
 
 	public void Attach(object context)
 	{
+		System.Console.WriteLine($"Root: (Before cast) {WindowHelper.GetRootWindow( context)}, {context.GetType()}");
 		if (context is mux.Application Control)
 		{
+			System.Console.WriteLine($"Root (cast as Application): {WindowHelper.GetRootWindow(context)}, {Control.GetType()}");
 			//Control = context as mux.Application;
 
 			Control.Resources.MergedDictionaries.Add(
@@ -38,7 +42,10 @@ public class ApplicationHandler : WidgetHandler<mux.Application, Application, Ap
 		}
 		else if (context is mux.FrameworkElement ControlFE)
 		{
+			System.Console.WriteLine($"Root (cast as FE): {WindowHelper.GetRootWindow(context)}, {ControlFE.GetType()}");
 			//Control = context as mux.Application;
+			System.Console.WriteLine($"Root element: {ControlFE.GetRootElement()}");
+			WindowHelper.RootFrame = (mux.Controls.Frame)ControlFE.GetRootElement();
 
 			ControlFE.Resources.MergedDictionaries.Add(
 				new mux.ResourceDictionary
@@ -49,9 +56,25 @@ public class ApplicationHandler : WidgetHandler<mux.Application, Application, Ap
 
 			Callback.OnInitialized(Widget, EventArgs.Empty);
 		}
+		else if (context is mux.ResourceDictionary MD)
+		{
+			System.Console.WriteLine($"Root: {WindowHelper.GetRootWindow(context)}, {MD.GetType()}");
+			//Control = context as mux.Application;
+			Console.WriteLine("Merged dictionary");
+
+			MD.MergedDictionaries.Add(
+				new mux.ResourceDictionary
+				{
+
+					Source = new Uri("ms-appx:///Eto.WinUI/Forms/Controls/BindingTemplates.xaml")
+				});
+
+			Callback.OnInitialized(Widget, EventArgs.Empty);
+		}
 		else
 		{
-			System.Console.WriteLine($"{context.GetType()}");
+			
+			System.Console.WriteLine($"Did not cast; {context.GetType()}");
 			Control = context as mux.Application;
 
 			Control.Resources.MergedDictionaries.Add(

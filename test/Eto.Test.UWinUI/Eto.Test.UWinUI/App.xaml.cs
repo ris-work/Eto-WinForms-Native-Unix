@@ -39,6 +39,8 @@ namespace Eto.Test.UWinUI
 
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            //var MD = Microsoft.UI.Xaml.Application.Current.Resources.MergedDictionaries;
+
             MainWindow = new Microsoft.UI.Xaml.Window();
 #if DEBUG
             //MainWindow.UseStudio();
@@ -64,6 +66,11 @@ namespace Eto.Test.UWinUI
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 rootFrame.Navigate(typeof(MainPage), args.Arguments);
+                var X = new TextBlock() { Text = "AB" };
+                rootFrame.Content = X;
+                X.Tapped += (_, _) => {
+                    app.Attach(this);
+                };
             }
 
 
@@ -73,31 +80,46 @@ namespace Eto.Test.UWinUI
             //MainWindow.Activate();
 
             //app.Attach(app);
+
             //MainWindow.Activate();
+            //MainWindow.Content.UpdateLayout();
+            MainWindow.Activate();
+            
             app.Initialized += (_, _) => { 
                 Console.Error.WriteLine("Initialized");
                 foreach (var window in ApplicationHelper.Windows)
                 {
                     Console.WriteLine($"Title: {window.Title}");
                     //window.Activate();
+                    //window.Content.UpdateLayout();
                 }
-                ApplicationHelper.Windows[1].Closed += (_, _) => { Console.WriteLine("Exiting..."); this.Exit();  };
-                ApplicationHelper.Windows[1].Activate();
-                
+                //MainWindow.Activate();
+                Console.WriteLine($"Activated main window");
+                //(ApplicationHelper.Windows[1].Content);
+                //MainWindow.Activate();
+
+                //ApplicationHelper.Windows[1].Closed += (_, _) => { Console.WriteLine("Exiting..."); this.Exit();  };
+                //ApplicationHelper.Windows[1].Activate();
+
+                //rootFrame.Content = ApplicationHelper.Windows[1].f;
+                //ApplicationHelper.Windows[0].;
+
             };
             app.Terminating += (_, _) => {
                 Console.Error.WriteLine("Terminating...");
                 foreach (var window in ApplicationHelper.Windows)
                 {
                     Console.WriteLine($"Title: {window.Title}");
-                    window.Close();
+                    //window.Close();
                 }
                 
             };
-            var EA = app.Attach(rootFrame);
-            //rootFrame.Content = ((FrameworkElement)EA.ControlObject);
-            
-            
+            //app.Attach(rootFrame);
+            //var EA = app.Attach(rootFrame);
+            //rootFrame.Content = ((FrameworkElement)EA.ControlObject);*/
+            //app.Attach(rootFrame);
+
+
         }
 
 
@@ -115,6 +137,8 @@ namespace Eto.Test.UWinUI
         {
             app.Attach(this);
         }*/
-        
+
     }
+    
+
 }
