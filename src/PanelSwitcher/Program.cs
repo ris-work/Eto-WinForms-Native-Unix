@@ -10,10 +10,19 @@ Console.WriteLine("Unix support for System.Drawing.Common is now enabled!");
 
 // Your application code goes here.
 // For example, you could perform image processing tasks here.
-var platform = new Eto.WinForms.Platform();
+try
+{
+	var platform = new Eto.WinForms.Platform();
 
-var app = new Application(platform);
-app.Run(new T());
+
+	var app = new Application(platform);
+	app.Run(new T());
+}
+catch (Exception E)
+{
+	System.Console.WriteLine($"{E.ToString()}, {E.StackTrace}");
+}
+
 
 public class T : Eto.Forms.Form
 {

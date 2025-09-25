@@ -31,6 +31,14 @@
     <Using Include="System.Drawing.Drawing2D" Alias="sd2" />
   </ItemGroup>
 
+  <!-- This ItemGroup will only be processed if the condition is true -->
+  <ItemGroup Condition="'$(IsExperimentalWinFormsCairoNativeBuild)' == 'true'">
+    <Reference Include="ExperimentalWinFormsCairoNative">
+      <HintPath>$(SolutionDir)Experimental\ExperimentalWinFormsCairoNative.dll</HintPath>
+    </Reference>
+    <!-- You can add other references in here as needed -->
+  </ItemGroup>
+
   <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences" BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies" Condition="'$(IsWindowsTarget)' != 'true'">
     <ItemGroup>
       <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App" />
