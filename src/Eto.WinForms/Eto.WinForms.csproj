@@ -2,17 +2,39 @@
 
   <PropertyGroup>
     <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
-    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net9.0-windows;net9.0</TargetFrameworks>
+    <TargetFrameworks>net11.0;net11.0-windows</TargetFrameworks>
+    <TargetFrameworks Condition="$(TargetFrameworkOverride) == ''">net11.0-windows;net11.0</TargetFrameworks>
     <TargetFrameworks Condition="$(TargetFrameworkOverride) != ''">$(TargetFrameworkOverride)</TargetFrameworks>
+    <Copyright>(c) Rishikeshan Sulochana/Lavakumar 2026, Curtis Wensley (Eto), Various Eto.Forms Authors, Various Mono authors, Daniel Van Noord 2019</Copyright>
     <OutputType>Library</OutputType>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <DefineConstants>$(DefineConstants);WINFORMS</DefineConstants>
-    <NoWarn>MSB4011;$(NoWarn)</NoWarn>
+    <NoWarn>MSB4011;WFDEV005;$(NoWarn)</NoWarn>
     <UseWindowsForms Condition="'$(IsWindowsTarget)' == 'true'">true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
     <LangVersion>13</LangVersion>
-
+    <Version>1.0.6-alpha1</Version>
+    <PackageProjectUrl>https://github.com/ris-work/Eto-WinForms-Native-Unix</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ris-work/Eto-WinForms-Native-Unix</RepositoryUrl>
+    <Description>Old Mono's WinForms reuse. A .Net Core implementation of the Mono System.Windows.Forms library with rounding experiments, Linux/BSD-compatible with libgdiplus. This is built on top of System.Drawing.Common.</Description>
+    <Authors>Rishikeshan Sulochana/Lavakumar, Curtis Wensley (picoe), Various Mono authors, Daniel Van Noord</Authors>
+    <PackageId>Rishi.Eto.Platform.Core.WinForms</PackageId>
+    <!--<DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>-->
   </PropertyGroup>
+
+  <Target Name="AliasFrameworkDrawingReferences" AfterTargets="ResolveAssemblyReferences" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <!-- Alias the framework's System.Drawing.Primitives so it doesn't collide with your custom System.Drawing.dll -->
+      <ReferencePath Condition="'%(FileName)' == 'System.Drawing.Primitives'">
+        <Aliases>sysdrawing</Aliases>
+      </ReferencePath>
+      <!-- Also alias System.Drawing.Common just in case ConfigurationManager pulls it in -->
+      <ReferencePath Condition="'%(FileName)' == 'System.Drawing.Common'">
+        <Aliases>sysdrawingcommon</Aliases>
+      </ReferencePath>
+
+    </ItemGroup>
+  </Target>
 
   <PropertyGroup>
     <!-- Create a custom flag to disable desktop validation -->
@@ -22,21 +44,18 @@
   </PropertyGroup>
 
   <!-- Override the SDK’s Windows desktop validation target -->
-  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration"
-          Condition="'$(DisableWindowsDesktopTargetingValidation)' == 'true'">
+  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration" Condition="'$(DisableWindowsDesktopTargetingValidation)' == 'true'">
     <!-- No operations: this effectively cancels the check -->
   </Target>
   
   <PropertyGroup>
-    <PackageId>
-	</PackageId>
-    <Title>Eto.Forms - Windows Forms Platform</Title>
-    <Description>Windows Forms Platform for the Eto.Forms UI Framework</Description>
-    <PackageTags>cross platform gui ui framework desktop wpf eto.forms</PackageTags>
+    <Title>Eto.Forms - Windows Forms Platform (Works on Linux/BSD too)</Title>
+    <Description>Windows Forms Platform (Cross-platform) for the Eto.Forms UI Framework</Description>
+    <PackageTags>cross platform gui ui framework desktop wpf eto.forms FreeBSD Linux</PackageTags>
     <PackageDescription>
 This is the Windows Forms platform for Eto.Forms UI Framework.
 
-Include this along with your Eto.Forms application to provide a Windows Forms interface for your windows users.
+Include this along with your Eto.Forms application to provide a Windows Forms interface for your Windows/FreeBSD/Linux users.
 
 You do not need to use any of the classes of this assembly (unless customizing the Windows Forms functionality of the platform), and should just use the UI controls from the Eto assembly.
     </PackageDescription>
@@ -52,15 +71,12 @@ You do not need to use any of the classes of this assembly (unless customizing t
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
 
-  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration"
-        BeforeTargets="_CheckForInvalidConfigurationAndPlatform"
-        Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and $([MSBuild]::VersionGreaterThanOrEquals($(_TargetFrameworkVersionWithoutV), '5.0')) and ('$(UseWindowsForms)' == 'true' or '$(UseWPF)' == 'true')">
+  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration" BeforeTargets="_CheckForInvalidConfigurationAndPlatform" Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and $([MSBuild]::VersionGreaterThanOrEquals($(_TargetFrameworkVersionWithoutV), '5.0')) and ('$(UseWindowsForms)' == 'true' or '$(UseWPF)' == 'true')">
     <NETSdkError Condition="'$(TargetPlatformIdentifier)' != 'Windows'" ResourceName="WindowsDesktopTargetPlatformMustBeWindows" />
   </Target>
 
   <!-- Override the automatic Windows desktop validation -->
-  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration"
-          Condition="'$(DisableWindowsDesktopTargetValidation)'=='true'">
+  <Target Name="_CheckForInvalidWindowsDesktopTargetingConfiguration" Condition="'$(DisableWindowsDesktopTargetValidation)'=='true'">
     <!-- Empty override: skips the check that enforces a Windows dependency -->
   </Target>
   
@@ -77,17 +93,27 @@ You do not need to use any of the classes of this assembly (unless customizing t
     <Reference Include="..\..\lib\SHDocVw\Interop.SHDocVw.dll" EmbedInteropTypes="False" Private="False" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Forcefully block the unwanted NuGet package from entering the build -->
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0.0">
+      <ExcludeAssets>all</ExcludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+
+
 
   <ItemGroup>
     <Compile Include="..\Eto.Mac\SDConversions.cs">
       <Link>SDConversions.cs</Link>
     </Compile>
-    <Compile Include="..\Eto.Wpf\CustomControls\DragDropLib.cs">
+    <!--<Compile Include="..\Eto.Wpf\CustomControls\DragDropLib.cs">
       <Link>CustomControls\DragDropLib.cs</Link>
-    </Compile>
-    <Compile Include="..\Eto.Wpf\CustomControls\DragDropLib.Swf.cs">
+    </Compile>-->
+    <!--<Compile Include="..\Eto.Wpf\CustomControls\DragDropLib.Swf.cs">
       <Link>CustomControls\DragDropLib.Swf.cs</Link>
-    </Compile>
+    </Compile>-->
     <Compile Include="..\Eto.Wpf\CustomControls\HttpServer.cs">
       <Link>CustomControls\HttpServer.cs</Link>
     </Compile>
@@ -143,14 +169,27 @@ You do not need to use any of the classes of this assembly (unless customizing t
 
   <ItemGroup>
     <ProjectReference Include="..\Eto\Eto.csproj" />
+    <ProjectReference Include="..\..\..\Core.System.Windows.Forms\System.Windows.Forms\System.Windows.Forms.csproj" />
+    <ProjectReference Include="..\..\..\..\..\invnew\System.Drawing\System.Drawing.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="CustomControls\CalendarPicker.png" />
   </ItemGroup>
 
+  <!-- Dynamically extracts ONLY the absolute minimum BCL engines from your SDK -->
   <ItemGroup>
-    <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha6" />
+    <Reference Include="System.Private.CoreLib" Pack="false" />
+    <Reference Include="System.Runtime" Pack="false" />
+  </ItemGroup>
+
+  <!-- Restores basic compilation types globally -->
+  <ItemGroup>
+    <Using Include="System" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="Rishi.Core.System.Windows.Forms" Version="1.0.6-alpha1" />-->
     <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
   	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
     <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
@@ -177,9 +216,7 @@ You do not need to use any of the classes of this assembly (unless customizing t
     
   </PropertyGroup>
 
-  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences"
-        BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies"
-        Condition="'$(IsWindowsTarget)' != 'true'">
+  <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences" BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies" Condition="'$(IsWindowsTarget)' != 'true'">
     <ItemGroup>
       <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App" />
       <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App.WindowsForms" />

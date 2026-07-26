@@ -26,8 +26,8 @@ namespace Eto.WinForms.Forms
 		private void Control_DragLeave(object sender, EventArgs e)
 		{
 			var control = (swf.Control)sender;
-			if (hasEntered)
-				swf.DropTargetHelper.DragLeave(control);
+			if (hasEntered) { }
+				//swf.DropTargetHelper.DragLeave(control);
 			hasEntered = false;
 		}
 
@@ -42,28 +42,28 @@ namespace Eto.WinForms.Forms
 		private void Control_DragOver(object sender, swf.DragEventArgs e)
 		{
 			var control = (swf.Control)sender;
-			if (swf.DropTargetHelper.IsSupported(e.Data))
-				swf.DropTargetHelper.DragOver(GetPoint(control, e), e.Effect);
+			/*if (swf.DropTargetHelper.IsSupported(e.Data))
+				swf.DropTargetHelper.DragOver(GetPoint(control, e), e.Effect);*/
 		}
 
 		private void Control_DragDrop(object sender, swf.DragEventArgs e)
 		{
 			var control = (swf.Control)sender;
-			if (swf.DropTargetHelper.IsSupported(e.Data))
+			/*if (swf.DropTargetHelper.IsSupported(e.Data))
 			{
 				swf.DropTargetHelper.Drop(e.Data, GetPoint(control, e), e.Effect);
 				hasEntered = true;
-			}
+			}*/
 		}
 
 		private void Control_DragEnter(object sender, swf.DragEventArgs e)
 		{
 			var control = (swf.Control)sender;
-			if (swf.DropTargetHelper.IsSupported(e.Data))
+			/*if (swf.DropTargetHelper.IsSupported(e.Data))
 			{
 				swf.DropTargetHelper.DragEnter(control, e.Data, GetPoint(control, e), e.Effect);
 				hasEntered = true;
-			}
+			}*/
 		}
 	}
 }

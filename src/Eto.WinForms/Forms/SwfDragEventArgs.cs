@@ -37,7 +37,7 @@ namespace Eto.WinForms.Forms
 				// can't have %1 in the string, so insert zero width space character inbetween.
 				format = format?.Replace("%1", "%\x200b1");
 			}
-			swf.SwfDataObjectExtensions.SetDropDescription(data, (swf.DropImageType)Effects.ToSwf(), format, inner);
+			//swf.SwfDataObjectExtensions.SetDropDescription(data, (swf.DropImageType)Effects.ToSwf(), format, inner);
 		}
 	}
 }

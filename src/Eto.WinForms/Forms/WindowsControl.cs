@@ -1005,16 +1005,16 @@ namespace Eto.WinForms.Forms
 			swf.DragDropEffects effects;
 			if (UseShellDropManager)
 			{
-				swf.DragSourceHelper.AllowDropDescription(true);
+				//swf.DragSourceHelper.AllowDropDescription(true);
 
-				swf.SwfDataObjectExtensions.SetDropDescription(dataObject, swf.DropImageType.Invalid, null, null);
+				//swf.SwfDataObjectExtensions.SetDropDescription(dataObject, swf.DropImageType.Invalid, null, null);
 				if (image == null)
 					image = new Bitmap(1, 1, PixelFormat.Format32bppRgba);
 
-				swf.SwfDataObjectExtensions.SetDragImage(dataObject, image.ToSD(), cursorOffset.ToSDPoint());
-				swf.DragSourceHelper.RegisterDefaultDragSource(Control, dataObject);
+				//swf.SwfDataObjectExtensions.SetDragImage(dataObject, image.ToSD(), cursorOffset.ToSDPoint());
+				//swf.DragSourceHelper.RegisterDefaultDragSource(Control, dataObject);
 				effects = Control.DoDragDrop(dataObject, allowedEffects.ToSwf());
-				swf.DragSourceHelper.UnregisterDefaultDragSource(Control);
+				//swf.DragSourceHelper.UnregisterDefaultDragSource(Control);
 			}
 			else
 			{

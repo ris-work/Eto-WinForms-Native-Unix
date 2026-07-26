@@ -10,7 +10,7 @@ namespace Eto.Wpf.Forms
 
 #elif WINFORMS
 using System.Runtime.InteropServices.ComTypes;
-using static System.Windows.Forms.SwfDataObjectExtensions;
+//using static System.Windows.Forms.SwfDataObjectExtensions;
 using sw = System.Windows.Forms;
 using BitmapSource = System.Drawing.Image;
 using IDataObject = Eto.Forms.IDataObject;
@@ -42,7 +42,7 @@ namespace Eto.WinForms.Forms
 
 		public DataObjectHandler()
 		{
-			Control = new sw.DataObject(new DragDropLib.DataObject());
+			//Control = new sw.DataObject(new DragDropLib.DataObject());
 			IsExtended = true;
 		}
 		public DataObjectHandler(sw.IDataObject data)
@@ -82,8 +82,8 @@ namespace Eto.WinForms.Forms
 
 		public override void Clear()
 		{
-			if (IsExtended)
-				Control = new sw.DataObject(new DragDropLib.DataObject());
+			if (IsExtended) { }
+			//Control = new sw.DataObject(new DragDropLib.DataObject());
 			else
 				Control = new sw.DataObject();
 			Update();
@@ -113,7 +113,7 @@ namespace Eto.WinForms.Forms
 
 		public DataObjectHandler(sw.IDataObject data)
 		{
-			IsExtended = data is DragDropLib.DataObject;
+			//IsExtended = data is DragDropLib.DataObject;
 			Control = new sw.DataObject(data);
 		}
 
@@ -135,8 +135,8 @@ namespace Eto.WinForms.Forms
 			get { return ContainsText ? Control.GetText() : null; }
 			set
 			{
-				if (IsExtended)
-					Control.SetDataEx(sw.DataFormats.UnicodeText, value);
+				if (IsExtended) { }
+				//Control.SetDataEx(sw.DataFormats.UnicodeText, value);
 				else
 					Control.SetText(value);
 				Update();
@@ -150,8 +150,8 @@ namespace Eto.WinForms.Forms
 			get { return ContainsHtml ? Control.GetText(sw.TextDataFormat.Html) : null; }
 			set
 			{
-				if (IsExtended)
-					Control.SetDataEx(sw.DataFormats.Html, value);
+				if (IsExtended) { }
+				//Control.SetDataEx(sw.DataFormats.Html, value);
 				else
 					Control.SetText(value, sw.TextDataFormat.Html);
 				Update();
@@ -184,19 +184,19 @@ namespace Eto.WinForms.Forms
 				if (dib != null)
 				{
 					// write a DIB here, so we can preserve transparency of the image
-					if (IsExtended)
-						Control.SetDataEx(sw.DataFormats.Dib, dib);
+					if (IsExtended) { }
+					//Control.SetDataEx(sw.DataFormats.Dib, dib);
 					else
 						Control.SetData(sw.DataFormats.Dib, dib);
 				}
-#if WPF				
+#if WPF
 				else if (IsExtended)
 					Control.SetDataEx(sw.DataFormats.Bitmap, value.ToWpf());
 				else
 					Control.SetImage(value.ToWpf());
 #elif WINFORMS
-				else if (IsExtended)
-					Control.SetDataEx(sw.DataFormats.Bitmap, value.ToSD());
+				else if (IsExtended) { }
+				//Control.SetDataEx(sw.DataFormats.Bitmap, value.ToSD());
 				else
 					Control.SetImage(value.ToSD());
 #endif
@@ -245,8 +245,8 @@ namespace Eto.WinForms.Forms
 					files.AddRange(coll.Where(r => r.IsFile).Select(r => r.LocalPath).ToArray());
 					if (files.Count > 0)
 					{
-						if (IsExtended)
-							Control.SetDataEx(sw.DataFormats.FileDrop, files.OfType<string>().ToArray());
+						if (IsExtended) { }
+						//Control.SetDataEx(sw.DataFormats.FileDrop, files.OfType<string>().ToArray());
 						else
 							Control.SetFileDropList(files);
 					}
@@ -263,9 +263,9 @@ namespace Eto.WinForms.Forms
 				{
 					if (IsExtended)
 					{
-						Control.SetDataEx(sw.DataFormats.FileDrop, null);
-						Control.SetDataEx(UniformResourceLocatorW_Format, null);
-						Control.SetDataEx(UniformResourceLocator_Format, null);
+						//Control.SetDataEx(sw.DataFormats.FileDrop, null);
+						//Control.SetDataEx(UniformResourceLocatorW_Format, null);
+						//Control.SetDataEx(UniformResourceLocator_Format, null);
 					}
 					else
 					{
@@ -410,8 +410,8 @@ namespace Eto.WinForms.Forms
 
 		public void SetData(byte[] value, string type)
 		{
-			if (IsExtended)
-				Control.SetDataEx(type, value);
+			if (IsExtended) { }
+			//Control.SetDataEx(type, value);
 			else
 				Control.SetData(type, value);
 			Update();
@@ -421,8 +421,8 @@ namespace Eto.WinForms.Forms
 		{
 			if (string.IsNullOrEmpty(type))
 				Text = value;
-			else if (IsExtended)
-				Control.SetDataEx(type, value);
+			else if (IsExtended) { }
+			//Control.SetDataEx(type, value);
 			else
 				Control.SetData(type, value);
 
@@ -434,7 +434,7 @@ namespace Eto.WinForms.Forms
 #if WPF
 			Control.SetDragImage(bitmap.ToWpf(), offset.ToWpf());
 #elif WINFORMS
-			Control.SetDragImage(bitmap.ToSD(), offset.ToSDPoint());
+			//Control.SetDragImage(bitmap.ToSD(), offset.ToSDPoint());
 #endif
 		}
 

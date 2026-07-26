@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net10.0-windows;net10.0</TargetFrameworks>
+    <TargetFrameworks>net11.0-windows;net11.0</TargetFrameworks>
     <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -11,6 +11,7 @@
     <UseWindowsForms>false</UseWindowsForms>
     <IsWindowsTarget>$([System.Text.RegularExpressions.Regex]::IsMatch($(TargetFramework),'-windows'))</IsWindowsTarget>
     <SelfContained>true</SelfContained>
+    <Description>This is Eto.Platform.Windows (WinForms) ported to work with modern .net's Mono's port of System.Windows.Forms; should work natively on GNU/Linux (tested with Debian) and FreeBSD (untested but similar enough as much as the runtime is concerned). Works with libgdiplus. This uses ordinary WinForms on Microsoft Windows (R). Mono's SWF rewrite is arguably safer (more MANAGED code) and lighter (less resource intensive). This uses Cairo for drawing on non Microsoft Windows (R) platform.</Description>
     
   </PropertyGroup>
 
@@ -46,7 +47,8 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Core.System.Windows.Forms" Version="1.0.0-alpha6" />
+    <PackageReference Include="Rishi.Core.System.Windows.Forms" Version="1.0.6-alpha1" />
+    <ProjectReference Include="..\..\src\Eto.WinForms\Eto.WinForms.csproj" />
     <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
   	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
     <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
