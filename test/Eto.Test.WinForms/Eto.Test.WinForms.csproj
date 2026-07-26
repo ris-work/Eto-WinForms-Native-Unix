@@ -16,21 +16,31 @@
   </PropertyGroup>
 
   <!-- If IsWindowsTarget is not set, default the runtime identifier to linux-x64 -->
-  <PropertyGroup Condition="'$(IsWindowsTarget)' != 'true'">
+  <!--<PropertyGroup Condition="'$(IsWindowsTarget)' != 'true'">
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
     <PublishSelfContained>true</PublishSelfContained>
-  </PropertyGroup>
+  </PropertyGroup>-->
+
+  <Target Name="AliasFrameworkDrawingReferences" AfterTargets="ResolveAssemblyReferences" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <!-- Alias the framework's System.Drawing.Primitives so it doesn't collide with your custom System.Drawing.dll -->
+      <ReferencePath Condition="'%(FileName)' == 'System.Drawing.Primitives'">
+        <Aliases>sysdrawing</Aliases>
+      </ReferencePath>
+      <!-- Also alias System.Drawing.Common just in case ConfigurationManager pulls it in -->
+      <ReferencePath Condition="'%(FileName)' == 'System.Drawing.Common'">
+        <Aliases>sysdrawingcommon</Aliases>
+      </ReferencePath>
+      <!--<ReferencePath Condition="'%(FileName)' == 'System.Windows.Forms'">
+        <Aliases>syswinforms</Aliases>
+      </ReferencePath>-->
+
+    </ItemGroup>
+  </Target>
 
   <PropertyGroup>
     <ApplicationManifest>Manifest-HiDpi.manifest</ApplicationManifest>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Using Include="System.Windows.Forms" Alias="swf" />
-    <Using Include="System.Drawing" Alias="sd" />
-    <Using Include="System.Drawing.Imaging" Alias="sdi" />
-    <Using Include="System.Drawing.Drawing2D" Alias="sd2" />
-  </ItemGroup>
 
   <Target Name="_RemoveWindowsDesktopTransitiveFrameworkReferences" BeforeTargets="_CheckForTransitiveWindowsDesktopDependencies" Condition="'$(IsWindowsTarget)' != 'true'">
     <ItemGroup>
@@ -40,19 +50,31 @@
     </ItemGroup>
   </Target>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core.System.Windows.Forms\System.Windows.Forms\System.Windows.Forms.csproj" />
+    <ProjectReference Include="..\..\src\Eto.WinForms\Eto.WinForms.csproj" />
+    <ProjectReference Include="..\..\..\..\..\invnew\System.Drawing\System.Drawing.csproj" />
+    <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    
+    <Using Include="System.Drawing" Alias="sd" />
+    <Using Include="System.Drawing.Imaging" Alias="sdi" />
+    <Using Include="System.Drawing.Drawing2D" Alias="sd2" />
+    <Using Include="System.Windows.Forms" Alias="swf" />
+  </ItemGroup>
+
+  
+
   <!-- (Optional) signal that you’re overriding the check -->
   <PropertyGroup>
     <OverrideInvalidWindowsDesktopTargeting>true</OverrideInvalidWindowsDesktopTargeting>
   </PropertyGroup>
 
 
-  <ItemGroup>
-    <PackageReference Include="Rishi.Core.System.Windows.Forms" Version="1.0.6-alpha1" />
-    <ProjectReference Include="..\..\src\Eto.WinForms\Eto.WinForms.csproj" />
-    <!--<PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
-  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" PrivateAssets="all" />-->
-    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
-  </ItemGroup>
 
 
   <ItemGroup>
